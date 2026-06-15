@@ -1,0 +1,11 @@
+[project]
+name = "toy-agent"
+version = "0.1.0"
+description = "A minimal coding agent (Phase 0.2 — 'How to Build an Agent'), Python implementation."
+requires-python = ">=3.10"
+dependencies = ["anthropic"]
+
+# This is a single-file app, not a distributable package — tell uv not to try
+# to build/install the project itself, just manage its dependencies.
+[tool.uv]
+package = false

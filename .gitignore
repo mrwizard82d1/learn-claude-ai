@@ -1,0 +1,22 @@
+# Root ignores: OS + editor cruft shared across the whole repo.
+# Language-specific build artifacts live in each subproject's own .gitignore.
+# JetBrains (.idea/) is left to the IDE's own generated .gitignore, per project.
+
+# OS
+.DS_Store
+Thumbs.db
+*~
+
+# Emacs (incl. Doom)
+\#*\#
+.\#*
+*.elc
+.dir-locals-2.el
+
+# Vim
+*.swp
+*.swo
+
+# Environment / secrets — never commit your ANTHROPIC_API_KEY
+.env
+.env.*

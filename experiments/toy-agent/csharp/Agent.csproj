@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Official Anthropic .NET SDK. If 12.9.0 is unavailable, run:
+         dotnet add package Anthropic   (to pull the latest) -->
+    <PackageReference Include="Anthropic" Version="12.9.0" />
+  </ItemGroup>
+
+</Project>

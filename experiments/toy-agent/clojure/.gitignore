@@ -1,0 +1,11 @@
+# Clojure CLI / tools.deps
+.cpcache/
+.nrepl-port
+
+# Build output
+target/
+pom.xml.asc
+
+# clojure-lsp / clj-kondo caches
+.lsp/
+.clj-kondo/.cache/
