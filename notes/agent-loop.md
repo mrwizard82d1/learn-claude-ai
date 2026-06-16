@@ -110,6 +110,50 @@ engineering lives:
 
 Phase 1, in a sentence: learning to be a good handler for a paralyzed, amnesiac genius.
 
+### The REPL / trampoline analogy (a Lisp framing of the same thing)
+
+I also tried: the agent loop is the **read–eval–print loop** of a Lisp
+interpreter — except `eval` isn't just reducing a form in the interpreter's
+environment; it has an "out" to seek more information, from the human or from
+tools. That framing is apt (the outer loop *is* a REPL; the conversation *is* the
+persisting environment), but three refinements make it sharper:
+
+1. **The "out" isn't an escape hatch — it's `eval`'s normal return.** `eval`
+   returns one of two kinds of result: a *value* (final text → print) or a
+   *request* ("perform this effect, then call me again"). An ordinary return,
+   not a `condition`/non-local exit. (And since asking the human is just another
+   tool, both "outs" are the same mechanism: request an effect from outside.)
+2. **`eval` is delegated to a stochastic oracle, not computed by the
+   interpreter.** A Lisp REPL applies fixed reduction rules deterministically.
+   Here the harness evaluates *nothing* — it hands the whole environment to the
+   model and asks *it* what to do next. The evaluator is external and
+   non-deterministic; the harness is a dumb dispatcher.
+3. **The environment is threaded explicitly, because the evaluator is amnesiac.**
+   Not a mutable environment held inside the interpreter — the entire
+   conversation is re-passed on every `eval` and the extended conversation comes
+   back. Pure state-passing (`eval : Env → (Result, Env)`), closer to a fold than
+   to a stateful REPL.
+
+**The construct underneath it is a trampoline.** "Returns either a value or a
+request to continue" is exactly `clojure.core/trampoline`: call `f`, and while
+the result is a function (a "bounce"), keep calling; stop when it's a plain
+value. Map it — a **tool request** is a bounce (do the effect, re-enter `eval`);
+**text with no tool** is the value (stop, print). That *is* the inner loop, and
+it restates the Q3 terminator in one line: **the loop ends when `eval` returns a
+value instead of a bounce.** So there are two nested loops — the **outer** REPL
+(per human turn) and the **inner** trampoline (per `eval`, until a value).
+
+**And the effects have a name:** the model only *describes* effects ("read this
+file"); the harness *performs* them. That's functional-core / imperative-shell
+(or, heavier: a free monad — the model emits effect descriptions, the harness is
+the interpreter that runs them). The pure decider proposes; the impure shell
+disposes — the brain-in-a-vat point again, in FP vocabulary.
+
+**Refined statement:** the agent loop is a REPL whose `eval` is delegated to a
+stochastic oracle, threaded over an explicit (stateless) environment, structured
+as a trampoline that bounces on effect-requests and halts on a value — with
+effects pushed out to an imperative shell.
+
 ---
 
 <!-- Session 0.3 will add a second section here: mapping these mechanics
