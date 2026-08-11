@@ -154,6 +154,78 @@ stochastic oracle, threaded over an explicit (stateless) environment, structured
 as a trampoline that bounces on effect-requests and halts on a value — with
 effects pushed out to an imperative shell.
 
+### Capstone — there is no evaluator; the "decision" is emergent
+
+The tempting picture: the model has a *goal* (produce a definitive answer) plus a
+*criterion* that checks "good enough yet?", and that check decides tool-call vs.
+stop. **No such module exists.** The model is a next-token predictor: given the
+whole context, it generates the most probable continuation, token by token.
+Emitting a tool request is just generating tokens that form a tool-use block;
+"answering" is generating text with *no* tool-use block. Tool-vs-stop isn't
+decided by an internal critic — it **emerges** from the same generation that
+produces every other token.
+
+- **Probabilistic vs. binary.** The generation is probabilistic (sampling a token
+  distribution — no threshold, no gate). The only **binary 0/1** in the system is
+  the *harness's* structural check on the output: "reply contains a tool request?
+  y/n." The decision I keep intuiting is real, but it lives in the dumb harness,
+  not as a judgment inside the model.
+- **No notion of correctness.** The model can stop, confidently, on a *wrong*
+  answer. Stopping ≠ correctness (the confabulation point).
+- **Blackboard contrast.** A blackboard architecture puts the intelligence in a
+  *control/scheduler* that decides which knowledge source runs and whether the
+  solution is complete. The agent loop puts the intelligence in a single
+  knowledge source (the model) and makes control trivial. (Multi-agent
+  orchestration — Phase 3 — is closer to a real blackboard.)
+- **Multiple questions.** No AND operator, no completeness checker; coverage of a
+  multi-part prompt is *emergent, not guaranteed* → structure the request
+  (enumerate) and verify coverage yourself.
+
+Reframe: the model's "function" isn't *"can I answer?"* (evaluation) but *"what's
+the next token?"* (generation). An answer or a tool-request emerges from that.
+
+### It's tokens all the way down (the mechanistic floor)
+
+The whole engine is next-token prediction — autoregressive: predict a distribution
+over the *single* next token, sample one, append, repeat, each token conditioned on
+all prior tokens (including the ones just emitted). The model never plans a whole
+output atomically; even a tool call is built token by token.
+
+**A tool call is not a different mechanism** — it's the same generation emitting
+tokens in a *structured shape*: a tool-use block (name + arguments) instead of
+prose. Same predictor, same token stream, different serialization. (So it's not a
+"condensation" of a thought — just output in a structured format rather than a
+paragraph.)
+
+**Why it produces that format, and only when apt** — two ingredients, both just
+more tokens to condition on:
+1. **Training** — the model was trained on tool-use, so "emit a tool-use block in
+   this format when the context calls for it" is baked into the weights.
+2. **The tool schemas are in the context** — every request includes the tool
+   names, descriptions, and argument schemas. Prediction is conditioned on *"here
+   are the tools and what they're for."* This is why tool descriptions carry so
+   much weight (the tool-design lever): they're literally part of the input the
+   next token is computed over.
+
+So the "mini language" is a **learned serialization protocol**: the model was
+trained to *write* it (tool-use blocks) and *read* it (schemas, results); the
+harness *parses* and *acts* on it.
+
+**The round trip is tokens too.** When the model finishes a tool-use block,
+generation pauses (`stop_reason: "tool_use"`). The harness parses it, runs the
+tool, and appends the result back as more tokens (a `tool_result` block). Next
+round, the model resumes doing the only thing it does — predict the next token —
+over a context that now contains the result. Nothing is injected into the model's
+"mind"; the result is just text appended to the growing sequence.
+
+**Unifying picture:** input tokens (system + tool schemas + conversation + tool
+results) → the model predicts output tokens (prose and/or tool-use blocks) → the
+harness parses any tool-use tokens, executes, appends result tokens → repeat. One
+growing token sequence that *both* the model and the harness write into, marked by
+roles (user / assistant / tool). Tool-calling isn't an exception to "predict the
+next token" — it *is* that, emitting tokens in a structured sub-format the harness
+recognizes and acts on. No second mechanism under the hood.
+
 ---
 
 <!-- Session 0.3 will add a second section here: mapping these mechanics
