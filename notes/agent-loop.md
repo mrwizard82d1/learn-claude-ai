@@ -228,5 +228,50 @@ recognizes and acts on. No second mechanism under the hood.
 
 ---
 
-<!-- Session 0.3 will add a second section here: mapping these mechanics
-     onto Claude Code features (CLAUDE.md, /clear, /compact, subagents). -->
+## Session 0.3 — Claude Code features as context management
+
+*Read: Anthropic, "Effective context engineering for AI agents." The point: the
+context window (everything the model sees each turn) is a **finite** resource
+that **degrades** as it fills ("context rot"). Since the model is a stateless
+amnesiac conditioned on the whole window every turn, curating that window isn't
+tidiness — it's steering. Each Claude Code feature below is a control for doing
+that.*
+
+Feature → the context problem it solves → how:
+
+- **`CLAUDE.md`** — *Problem:* the amnesiac forgets my conventions/architecture
+  every turn, and I don't want to re-type them each session. *How:* a file the
+  harness auto-injects into the window on **every** turn — a standing briefing
+  that survives the amnesia. *Caveat:* always-on means it always consumes window
+  space and attention, so keep it **high-signal**; a bloated `CLAUDE.md` is itself
+  pollution.
+- **`/compact`** — *Problem:* the conversation only grows (full history re-sent
+  every turn) and the window is finite. *How:* replaces the long history with a
+  shorter summary — lossy compression to keep the gist and free room.
+- **`/clear`** — *Problem:* the current context has become stale/tangled/off-track
+  and is degrading outputs (rot). *How:* discards the whole conversation for a
+  clean window. (Contrast `/compact`: clear **throws away**, compact **summarizes
+  and keeps**. `CLAUDE.md` survives a clear — it's re-injected.)
+- **`/rewind`** — *Problem:* recent turns or edits went wrong, but an earlier
+  state was good, and I don't want to nuke everything. *How:* back up to an
+  earlier **checkpoint**, undoing the conversation (and optionally file edits)
+  after it. git-reset / undo for the session.
+- **subagents** — *Problem:* a big, noisy sub-task (dozens of file reads, dead
+  ends) would flood my main window with junk. *How:* run it in a **separate
+  context window**; only a distilled result returns to the parent. Context
+  **isolation** — quarantine the noise.
+
+**Synthesis — one resource, three kinds of move.** These aren't a random toolbox;
+they're all answers to the essay's single question — *the window is finite and
+degrades, so control what's in it*:
+
+| Move | Features |
+|---|---|
+| Inject good context, persistently | `CLAUDE.md` |
+| Manage a full / rotting window | `/compact` (compress) · `/clear` (wipe) · `/rewind` (roll back) |
+| Prevent pollution up front | subagents (isolate noisy sub-work) |
+
+**The 0.3 payoff:** once I saw the loop as "a stateless model conditioned on a
+finite, degrading window," each of these features stopped being an arbitrary
+command and became an obvious *consequence* of the mechanism. Phase 0 goal met —
+I understand the tool from the mechanism up.
