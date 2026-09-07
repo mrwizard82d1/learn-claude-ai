@@ -5,6 +5,7 @@
 **Cadence:** ~1 hr/day, **weekdays only**, front-loaded.
 **Weekends:** off the plan. Saturday = *optional* catch-up if a weekday slipped; **Sunday always off.**
 **Evidence:** commit after each session — the git log is the proof of progress for the OKR.
+**▶ Next session:** build a simple **custom subagent** (you're jazzed about it). Then the **`CLAUDE.md`** exercise — do it on a *legacy* repo you maintain (see [`notes/legacy-workflow.md`](./notes/legacy-workflow.md)).
 
 ## Time budget (reality check)
 Remaining ≈ **~17 hours**. Weekdays Sep 8 → Wed Sep 30 (Mon Sep 7 is **Labor Day** — off) = **17 sessions** at ~1 hr ≈ 17 hrs.
@@ -22,9 +23,9 @@ Remaining ≈ **~17 hours**. Weekdays Sep 8 → Wed Sep 30 (Mon Sep 7 is **Labor
 **Phase 0**
 - [x] 0.1 — Read/understand the loop
 - [x] 0.3 — Connect the loop to Claude Code (context engineering)
-- [ ] 0.2 — closed via **guided read-through** of the scaffold ("see it done") · ~0.5h
+- [x] 0.2 — closed via **guided read-through** of the scaffold ("see it done", Python + Clojure)
 **Phase 1 — close the tool-breadth gap**
-- [ ] Read official **"Best practices for Claude Code"** end to end · ~1.5h
+- [x] Read official **"Best practices for Claude Code"** end to end
 - [ ] **DeepLearning.AI** "Claude Code: A Highly Agentic Coding Assistant" (10 lessons) · ~2h
 - [ ] Practice: write a real **CLAUDE.md** (`/init`, then refine) on a work repo · ~0.5h
 - [ ] Practice: use **plan mode** on a real multi-file change · (in flow)
