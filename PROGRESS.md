@@ -26,7 +26,7 @@ Remaining ≈ **~17 hours**. Weekdays Sep 8 → Wed Sep 30 (Mon Sep 7 is **Labor
 - [x] 0.2 — closed via **guided read-through** of the scaffold ("see it done", Python + Clojure)
 **Phase 1 — close the tool-breadth gap**
 - [x] Read official **"Best practices for Claude Code"** end to end
-- [ ] **DeepLearning.AI** "Claude Code: A Highly Agentic Coding Assistant" (10 lessons) · ~2h
+- [x] **DeepLearning.AI** "Claude Code: A Highly Agentic Coding Assistant" (all lessons watched; quiz is Pro-only, skipped)
 - [ ] Practice: write a real **CLAUDE.md** (`/init`, then refine) on a work repo · ~0.5h
 - [ ] Practice: use **plan mode** on a real multi-file change · (in flow)
 
