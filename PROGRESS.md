@@ -7,6 +7,15 @@
 **Evidence:** commit after each session — the git log is the proof of progress for the OKR.
 **▶ Next session:** build a simple **custom subagent** (you're jazzed about it). Then the **`CLAUDE.md`** exercise — do it on a *legacy* repo you maintain (see [`notes/legacy-workflow.md`](./notes/legacy-workflow.md)).
 
+**Applied track — skill (log 2026-09-15):** harvested the review-relevant slice of
+[`notes/legacy-workflow.md`](./notes/legacy-workflow.md) (the diagnosis + step 5) into **6 cue→check→why
+rules** — a legacy-code reviewer's-lens *flavor* draft for Marcos's `pr-review` skill. Pasted into
+`~/source/repos/skills/_laj/larry-flavor.md` (personal scratch; promote to
+`pr-review/references/flavors/larry.md` once proven on real diffs + Marcos agrees the template-method
+shape). Rules are hypotheses to test against live PRs; weight #3 (unexamined invariant) and #6
+(Chesterton's fence) — the subtle catches the LLM misses. Rest of the note = a *separate personal
+legacy-change skill*, later.
+
 ## Time budget (reality check)
 Remaining ≈ **~17 hours**. Weekdays Sep 8 → Wed Sep 30 (Mon Sep 7 is **Labor Day** — off) = **17 sessions** at ~1 hr ≈ 17 hrs.
 → **Fits within weekdays alone**, essentially zero slack. Front-load; a slipped weekday gets caught up on a Saturday, never by cramming Sunday.
