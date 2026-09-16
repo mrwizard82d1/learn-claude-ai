@@ -5,7 +5,7 @@
 **Cadence:** ~1 hr/day, **weekdays only**, front-loaded.
 **Weekends:** off the plan. Saturday = *optional* catch-up if a weekday slipped; **Sunday always off.**
 **Evidence:** commit after each session — the git log is the proof of progress for the OKR.
-**▶ Next session:** build a simple **custom subagent** (you're jazzed about it). Then the **`CLAUDE.md`** exercise — do it on a *legacy* repo you maintain (see [`notes/legacy-workflow.md`](./notes/legacy-workflow.md)).
+**▶ Next session:** the **`CLAUDE.md`** exercise — do it on a *legacy* repo you maintain (see [`notes/legacy-workflow.md`](./notes/legacy-workflow.md)). Also: **restart a session in a real repo to register `legacy-archaeologist`** and run it live (step 1 of the legacy loop). *(Custom subagent ✅ done — see log below.)*
 
 **Applied track — skill (log 2026-09-15):** harvested the review-relevant slice of
 [`notes/legacy-workflow.md`](./notes/legacy-workflow.md) (the diagnosis + step 5) into **6 cue→check→why
@@ -15,6 +15,19 @@ rules** — a legacy-code reviewer's-lens *flavor* draft for Marcos's `pr-review
 shape). Rules are hypotheses to test against live PRs; weight #3 (unexamined invariant) and #6
 (Chesterton's fence) — the subtle catches the LLM misses. Rest of the note = a *separate personal
 legacy-change skill*, later.
+
+**Subagents (log 2026-09-16):** built the first custom subagents, both **read-only by construction**
+(tools restricted → can't edit). `.claude/agents/note-distiller.md` (throwaway, `sonnet`, ≤5-bullet
+distiller — grokked the mechanism: separate context, distilled return) and
+`.claude/agents/legacy-archaeologist.md` (real: step-1 "understand first" mapper — inherits Opus for
+judgment-heavy invariant-spotting; output contract tags `[observed]` vs `[inferred]` and leads with
+the test-net verdict, directly countering the confabulation trap from `notes/legacy-workflow.md`).
+Validated the archaeologist via a `general-purpose` **stand-in** (named agent needs a session restart
+to register — `.claude/agents/` is scanned only at startup; `/agents` wizard is retired). Stand-in
+nailed it on a mock "add `edit_file`" target: honest NO test-net, correct observed/inferred split,
+mapped-not-designed, and caught the subtle wins (semantic blast radius ≫ code footprint; `.get()`
+default silently masking wrong arg keys). Next: restart in a real legacy repo → run the named
+`legacy-archaeologist` live. Later: house the full legacy workflow as a **skill** that dispatches it.
 
 ## Time budget (reality check)
 Remaining ≈ **~17 hours**. Weekdays Sep 8 → Wed Sep 30 (Mon Sep 7 is **Labor Day** — off) = **17 sessions** at ~1 hr ≈ 17 hrs.
@@ -42,7 +55,7 @@ Remaining ≈ **~17 hours**. Weekdays Sep 8 → Wed Sep 30 (Mon Sep 7 is **Labor
 ## Week 2 · Mon Sep 14 – Fri Sep 18 · Finish Phase 1 + Phase 2 · ~6h
 **Phase 1 (remainder)**
 - [ ] Anthropic Academy: **subagents** + **MCP** modules · ~1h
-- [ ] Practice: one **custom subagent** + one **custom slash command** · ~0.5h
+- [x] Practice: **custom subagent** — built two read-only agents (`note-distiller`, `legacy-archaeologist`); still to do: one **custom slash command** · ~0.5h
 - [ ] Practice: wire one **hook**; connect one **MCP server**; run `claude -p "..."` · ~1h
 - [ ] Practice: context hygiene — `/clear`, `/compact`, `/rewind` in real use · (in flow)
 - [ ] **Phase 1 exit:** you can drive the whole tool surface, not just familiar paths
