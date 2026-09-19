@@ -35,6 +35,45 @@ layering**, but under **Imperative Shell / Functional Core** it's the *expected*
 shell→core direction. So always evaluate against the model the user actually intends —
 and when they don't know, offer candidates rather than assuming a strict stack.
 
+## Evidence profile (quantifying the Candidates lens)
+
+When the user wants weights, express them as an **evidence profile computed from the
+edge inventory** — never as a conjured probability. The number must trace to counts.
+
+**How to compute**
+1. Take the **N observed** dependency edges from the inventory. Handle inferred edges
+   separately — don't let guesses drive the number.
+2. Classify each edge by which candidate model's invariant it is *consistent with* and
+   which it *violates*. An edge may support more than one model. An edge that violates
+   *every* candidate's invariant counts toward **mud** (ad hoc / cross-cutting).
+3. Report each bucket as `X of N edges`, then normalize to a percentage.
+
+**Presentation (example — always show the counts, not just %):**
+```
+Evidence profile (from 20 observed edges — NOT a probability):
+  Layered / inward      14/20  (70%)
+  Client-server seams    2/20  (10%)
+  Mud / cross-cutting    4/20  (20%)   <- violate every candidate
+  (ambiguous edges counted toward >1 model: 3;  inferred edges excluded: 5)
+Read: predominantly layered, with real client-server seams and a 20% mud pocket.
+```
+
+**Honesty rules**
+- Label it **"evidence profile," not "probability" / "posterior."** Edges are not
+  independent, so do NOT multiply likelihoods into a Bayesian number — that is false
+  precision. The `%` is only a normalized count.
+- Always show raw `X of N` beside any percentage.
+- It is **debatable and updateable** (the honest part of the Bayesian spirit): the user
+  can dispute an edge's classification or add edges, and the profile recomputes. Invite
+  that revision explicitly.
+- If most edges are mud, say the code is largely ad hoc — let mud win.
+
+**Bonus reading — change difficulty.** The mud / cross-cutting fraction is a proxy for
+coupling: the more edges violating every clean invariant, the more the code resists
+*localized* change (each is a potential Chesterton's fence / wider blast radius). So the
+profile doubles as a rough "how hard is change here" gauge, not just a style label —
+which is exactly what a maintainer sizing a task wants.
+
 ## Discipline
 Do not confabulate. Under Candidates, projecting a clean style onto messy code is the
 failure mode. Evidence both ways, rank by fit, and report the **drift** between

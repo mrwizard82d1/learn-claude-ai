@@ -44,6 +44,10 @@ produced a component view + a load-project→list-wells sequence, both rendered 
 upward interop→units edge) vs his intended Imperative-Shell/Functional-Core, which motivated the
 architectural-lens feature. Ship: copy `.claude/skills/architecture-view` to `~/.claude/skills/` on
 BOTH hosts (WSL + Windows), fresh session to register.
+Follow-up (same day): added an **evidence profile** to `arch-models.md` — quantifies the Candidates
+lens as `X of N edges` per style (normalized %, explicitly NOT a probability/posterior — edges aren't
+independent), computed from the observed edge inventory, debatable + updateable, with the mud fraction
+doubling as a change-difficulty/coupling gauge. **Re-copy the skill to both hosts** (it changed).
 
 ## Time budget (reality check)
 Remaining ≈ **~17 hours**. Weekdays Sep 8 → Wed Sep 30 (Mon Sep 7 is **Labor Day** — off) = **17 sessions** at ~1 hr ≈ 17 hrs.
