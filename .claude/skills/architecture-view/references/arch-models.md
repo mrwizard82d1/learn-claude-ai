@@ -41,8 +41,9 @@ When the user wants weights, express them as an **evidence profile computed from
 edge inventory** — never as a conjured probability. The number must trace to counts.
 
 **How to compute**
-1. Take the **N observed** dependency edges from the inventory. Handle inferred edges
-   separately — don't let guesses drive the number.
+1. Take the **N observed** dependency edges from the inventory, **within the confirmed
+   scope only** (see `discovery.md` — peripheral executables skew N). Handle inferred
+   edges separately — don't let guesses drive the number.
 2. Classify each edge by which candidate model's invariant it is *consistent with* and
    which it *violates*. An edge may support more than one model. An edge that violates
    *every* candidate's invariant counts toward **mud** (ad hoc / cross-cutting).

@@ -14,6 +14,21 @@ Find every runnable root:
 A solution with N executables is **N processes** — map them as separate top-level nodes,
 not one blob.
 
+## 1b. Triage the entry points — then CONFIRM scope before building
+Enumeration is for **recall** (find them all); scoping is for **precision** (keep the
+right ones). Do NOT treat every executable as part of the architecture — over-including
+peripheral tools is as wrong as missing a core one.
+- Classify each as likely **core** (participates in the product's runtime / IPC graph —
+  the WCF mesh, shared domain assemblies) or likely **peripheral** (a standalone utility:
+  installer, db-migrator, dev/benchmark tool, test host, one-off script).
+- Give the **signal** for each call; don't just assert it.
+- **Present the list and ask the user to confirm scope before drawing.** "Is this part of
+  the core product?" is domain knowledge in their head (like an IPC boundary) — never
+  silently include a red herring nor silently drop a real one.
+- Compute the **evidence profile over the CONFIRMED scope only.** Peripheral executables
+  don't just add nodes — they skew the `X of N` counts and the layering/candidate read,
+  perturbing the whole assessment. Lock scope first, then count.
+
 ## 2. Hunt IPC / integration seams — these have NO static import edge
 Separate processes are joined by **contract + config resolved at runtime**, so an
 import-following sweep will not see the edge. Search for the markers:

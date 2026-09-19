@@ -60,6 +60,13 @@ explicit cross-process edges, **flag-and-ask when a seam should exist but no sta
 discovery from a **fresh session**. Also: a user confirming a boundary is NOT evidence — ground it in
 the contract/config. **Re-copy the skill to both hosts again.**
 
+**Triage upgrade (log 2026-09-19c):** the fresh RPA discovery run found all 5 executables (recall fixed)
+but over-included 2 peripheral/utility exes (red herrings) that skewed the assessment. Encoded the
+precision fix in `discovery.md`: enumerate = recall, then **triage core-vs-peripheral with a stated
+signal, present the list, and CONFIRM scope with the user before drawing** (core-vs-peripheral is domain
+knowledge); compute the **evidence profile over the confirmed scope only** (peripheral exes skew N, not
+just add nodes). Precision/recall pendulum made explicit. **Re-copy to both hosts.**
+
 ## Time budget (reality check)
 Remaining ≈ **~17 hours**. Weekdays Sep 8 → Wed Sep 30 (Mon Sep 7 is **Labor Day** — off) = **17 sessions** at ~1 hr ≈ 17 hrs.
 → **Fits within weekdays alone**, essentially zero slack. Front-load; a slipped weekday gets caught up on a Saturday, never by cramming Sunday.
