@@ -54,14 +54,23 @@ honor it but note which view it serves and its confidence ceiling.
        evidence AND counter-evidence, ranked by fit. "Ad hoc / Big Ball of Mud" is a
        valid, respectable verdict — never invent a clean pattern the code lacks.
      (See `references/arch-models.md`.)
+   - *Discovery first (whole-system / Unknown / Candidates scope)*: BEFORE slicing,
+     enumerate every entry point/executable and hunt IPC seams — see
+     `references/discovery.md`. Prefer a **fresh session** for this; a prior localized
+     query anchors the altitude and can hide system-level structure (a second .exe).
 2. **Delegate the reading.** Do NOT read dozens of files into this conversation.
    Dispatch a **read-only** subagent (`legacy-archaeologist` or a locator) to sweep the
    slice and return a distilled inventory: elements in scope + edges between them, each
-   marked observed vs inferred. You render from that.
+   marked observed vs inferred. You render from that. For discovery scope, also instruct
+   it to enumerate ALL executables/entry points and hunt IPC/integration seams (WCF,
+   named pipes, gRPC, REST, queues, shared DB) — **separate processes joined by WCF/etc.
+   have NO static import edge**, so an import-following sweep misses them entirely
+   (see `references/discovery.md`).
 3. **Load only what you need** (progressive disclosure):
    - syntax: Logical → `references/logical.md` · Process → `references/process.md` ·
      Development → `references/development.md` · Physical/Scenarios →
      `references/physical-scenarios.md`
+   - entry-point + IPC discovery → `references/discovery.md`
    - rendering + PlantUML gotchas → `references/rendering.md`
    - architectural models & lenses → `references/arch-models.md`
 4. **Compose the diagram at the chosen altitude.** Show only the slice; group by
@@ -99,3 +108,8 @@ honor it but note which view it serves and its confidence ceiling.
   evidence for AND against each candidate, rank by fit, and let "ad hoc / Big Ball of
   Mud" win when it fits. Real code drifts from its intended design; report the drift,
   don't paper over it — that gap is often the most valuable thing the diagram shows.
+- **Cross-process boundaries are silent in static analysis.** Multiple executables
+  joined by WCF/pipes/HTTP/queues have no import edge — if you don't hunt them
+  (`references/discovery.md`) you will drop whole subsystems. When a seam should exist
+  but no static edge does, flag it and ASK; never omit. A user confirming a boundary is
+  not evidence — ground it in the contract/config before drawing it solid.

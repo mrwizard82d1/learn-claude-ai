@@ -49,6 +49,17 @@ lens as `X of N edges` per style (normalized %, explicitly NOT a probability/pos
 independent), computed from the observed edge inventory, debatable + updateable, with the mud fraction
 doubling as a change-difficulty/coupling gauge. **Re-copy the skill to both hosts** (it changed).
 
+**RPA run + discovery upgrade (log 2026-09-19b):** first live `architecture-view` run on RPA (in the
+RPA-rooted session) MISSED the `RPA.Agent` executable and the `TrayClient`↔`RPA.Agent` **WCF** boundary
+until Larry supplied it. Diagnosed: (a) WCF/IPC has NO static import edge (separate processes joined by
+contract+config at runtime) — the skill's own predicted process-view blind spot; (b) prior *localized*
+queries in that session anchored the altitude (context poisoning → Phase 0.3). Encoded the fix in a new
+`references/discovery.md` + protocol wiring: **enumerate ALL executables/entry points first**, **hunt
+IPC seams** (WCF `[ServiceContract]`+config, pipes, gRPC, REST, queues, shared DB), draw them as
+explicit cross-process edges, **flag-and-ask when a seam should exist but no static edge does**, and run
+discovery from a **fresh session**. Also: a user confirming a boundary is NOT evidence — ground it in
+the contract/config. **Re-copy the skill to both hosts again.**
+
 ## Time budget (reality check)
 Remaining ≈ **~17 hours**. Weekdays Sep 8 → Wed Sep 30 (Mon Sep 7 is **Labor Day** — off) = **17 sessions** at ~1 hr ≈ 17 hrs.
 → **Fits within weekdays alone**, essentially zero slack. Front-load; a slipped weekday gets caught up on a Saturday, never by cramming Sunday.
