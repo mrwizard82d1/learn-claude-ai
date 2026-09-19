@@ -5,7 +5,12 @@
 **Cadence:** ~1 hr/day, **weekdays only**, front-loaded.
 **Weekends:** off the plan. Saturday = *optional* catch-up if a weekday slipped; **Sunday always off.**
 **Evidence:** commit after each session — the git log is the proof of progress for the OKR.
-**▶ Next session:** the **`CLAUDE.md`** exercise — do it on a *legacy* repo you maintain (see [`notes/legacy-workflow.md`](./notes/legacy-workflow.md)). Also: **restart a session in a real repo to register `legacy-archaeologist`** and run it live (step 1 of the legacy loop). *(Custom subagent ✅ done — see log below.)*
+**▶ Next session (resume here):**
+1. **Grade the RPA architecture diagrams** (in `./tmp/`, gitignored) against your own knowledge — session grouping, WCF `9296` / REST `7047` seams.
+2. Decide the **`Sdk=Web` / `AddWindowsService` entry-point encode** for `discovery.md` (yes/no).
+3. Move the RPA arch doc from `./tmp/` → **RPA's `_laj/architecture/`** (proprietary; keep it out of this public repo).
+4. Then the **`CLAUDE.md`** box on RPA — the orientation doc you generated *is the seed* for it, so you're most of the way there.
+*(Custom subagent ✅ + `architecture-view` skill ✅ + ran both live on RPA ✅ — see logs below.)*
 
 **Applied track — skill (log 2026-09-15):** harvested the review-relevant slice of
 [`notes/legacy-workflow.md`](./notes/legacy-workflow.md) (the diagnosis + step 5) into **6 cue→check→why
@@ -95,7 +100,7 @@ Remaining ≈ **~17 hours**. Weekdays Sep 8 → Wed Sep 30 (Mon Sep 7 is **Labor
 - [ ] Anthropic Academy: **subagents** + **MCP** modules · ~1h
 - [x] Practice: **custom subagent** — built two read-only agents (`note-distiller`, `legacy-archaeologist`); still to do: one **custom slash command** · ~0.5h
 - [ ] Practice: wire one **hook**; connect one **MCP server**; run `claude -p "..."` · ~1h
-- [ ] Practice: context hygiene — `/clear`, `/compact`, `/rewind` in real use · (in flow)
+- [x] Practice: context hygiene — used `/compact` (mid-session save) and `/clear` (to de-poison the RPA discovery run) in real use · (`/rewind` not yet tried — the one remaining)
 - [ ] **Phase 1 exit:** you can drive the whole tool surface, not just familiar paths
 **Phase 2 — formalize the discipline**
 - [ ] Martin "Clean AI: Agentic Discipline" (your queued episode) · ~1h *(skip if paywalled)*
