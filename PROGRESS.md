@@ -29,6 +29,22 @@ mapped-not-designed, and caught the subtle wins (semantic blast radius ≫ code 
 default silently masking wrong arg keys). Next: restart in a real legacy repo → run the named
 `legacy-archaeologist` live. Later: house the full legacy workflow as a **skill** that dispatches it.
 
+**Skill built (log 2026-09-19):** authored `architecture-view` — a Phase-1 skill-authoring rep + real
+office tool. Draws 4+1 architecture diagrams (class, sequence, activity/parallel, component, package,
+deployment, use-case) as **rendered PlantUML PNGs**, at a chosen altitude, delegating the read-heavy
+sweep to `legacy-archaeologist`. Structure: lean `SKILL.md` + per-view `references/` (progressive
+disclosure — the Marcos-relevant pattern). Disciplines baked in: observed/inferred edge marks;
+"pick a slice, never the hairball"; per-view derivability (concurrency/parallel is the confabulation
+danger zone); a **render step + PlantUML gotchas** ref (`rendering.md`); and an **architectural-lens**
+option (`arch-models.md`) — Named model / **Unknown (default)** / Candidates-with-evidence, where
+"Big Ball of Mud" is a valid verdict (don't confabulate a clean architecture). **Dry-run VALIDATED**
+on the (Apache-2.0, self-authored) Orchid Python API cloned to gitignored `experiments/orchid/`:
+produced a component view + a load-project→list-wells sequence, both rendered to PNG in gitignored
+`_dryrun/`. Larry graded it a strong pass — it exposed the *real* dependencies (leaky facade, an
+upward interop→units edge) vs his intended Imperative-Shell/Functional-Core, which motivated the
+architectural-lens feature. Ship: copy `.claude/skills/architecture-view` to `~/.claude/skills/` on
+BOTH hosts (WSL + Windows), fresh session to register.
+
 ## Time budget (reality check)
 Remaining ≈ **~17 hours**. Weekdays Sep 8 → Wed Sep 30 (Mon Sep 7 is **Labor Day** — off) = **17 sessions** at ~1 hr ≈ 17 hrs.
 → **Fits within weekdays alone**, essentially zero slack. Front-load; a slipped weekday gets caught up on a Saturday, never by cramming Sunday.
