@@ -6,7 +6,7 @@
 **Weekends:** off the plan. Saturday = *optional* catch-up if a weekday slipped; **Sunday always off.**
 **Evidence:** commit after each session — the git log is the proof of progress for the OKR.
 **▶ Next session (resume here):**
-1. **Grade the RPA architecture diagrams** (in `./tmp/`, gitignored) against your own knowledge — session grouping, WCF `9296` / REST `7047` seams.
+1. **Grade the RPA architecture diagrams** (canonical: `RPA/_laj/rpa-architecture/`, readable from here) against your own knowledge — session grouping, WCF `9296` / REST `7047` seams.
 2. Decide the **`Sdk=Web` / `AddWindowsService` entry-point encode** for `discovery.md` (yes/no).
 3. Move the RPA arch doc from `./tmp/` → **RPA's `_laj/architecture/`** (proprietary; keep it out of this public repo).
 4. Then the **`CLAUDE.md`** box on RPA — the orientation doc you generated *is the seed* for it, so you're most of the way there.
