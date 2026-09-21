@@ -26,7 +26,12 @@ propose the change.
    looks pointless. These are the invisible things a change would break.
 
 ## Output contract
-Return these sections, in this order. Anchor every claim to `file:line:symbol`.
+Return these sections, in this order. **Anchor every claim to the enclosing SYMBOL**
+(`file › Namespace.Class.Method`), NOT a raw line number — lines rot silently at the
+next edit, whereas a symbol survives edits and a rename is git-recoverable. A line
+number is allowed only as an optional hint marked ephemeral, e.g. `(~L114 at read
+time)`. For symbol-less files (`.config`, `.csproj`, XML, markup), anchor to a stable
+landmark — the element/section/key or a short quoted string to grep — never a bare line.
 
 **Target** — what the change area is and does, in 2-3 lines.
 **Test net** — YES/NO/PARTIAL, with the test files (or "none found"). Lead with this.

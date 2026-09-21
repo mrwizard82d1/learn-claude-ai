@@ -82,6 +82,17 @@ into a pipeline: repro-planner → (human reproduces) → legacy-archaeologist �
 evidence toward the **Phase 1 exit** criterion (drive the whole tool surface). Open Q: does it read Jira
 via the Atlassian MCP connector? (if so, that's the "connect one MCP server" practice item, in real use).
 
+**Skill polish from grip-viewing the RPA doc (log 2026-09-21b):** viewed the RPA architecture doc via
+`grip` (SVG renders fine through grip). Two output improvements prototyped in `RPA/_laj/rpa-architecture/index.md`:
+(a) an **image-embedding index** so the deliverable is one viewable page (the README embedded no images);
+(b) **grouped by Kruchten 4+1 views + a TOC** (Larry's ask; a view can hold several diagrams — Process has 4).
+Confirmed **SVG > PNG** for these (vector: smaller + zoomable; PNG size balloons because sequence/activity
+canvases get tall). Candidates to fold into the `architecture-view` skill itself: emit an embedding+TOC+4+1
+index, and prefer SVG output. **Encoded now (Larry's sharp catch):** anchor evidence by **enclosing SYMBOL,
+not raw line number** — lines rot silently at the next edit; a symbol survives edits and a rename is
+git-recoverable; line optional+ephemeral; symbol-less files use a stable landmark. Applied to BOTH
+`legacy-archaeologist` and `architecture-view`; `repro-planner` should get the same (his work agent).
+
 ## Time budget (reality check)
 Remaining ≈ **~17 hours**. Weekdays Sep 8 → Wed Sep 30 (Mon Sep 7 is **Labor Day** — off) = **17 sessions** at ~1 hr ≈ 17 hrs.
 → **Fits within weekdays alone**, essentially zero slack. Front-load; a slipped weekday gets caught up on a Saturday, never by cramming Sunday.

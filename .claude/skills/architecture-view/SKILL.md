@@ -113,3 +113,10 @@ honor it but note which view it serves and its confidence ceiling.
   (`references/discovery.md`) you will drop whole subsystems. When a seam should exist
   but no static edge does, flag it and ASK; never omit. A user confirming a boundary is
   not evidence — ground it in the contract/config before drawing it solid.
+- **Anchor evidence by enclosing SYMBOL, not raw line number.** These are durable
+  artifacts (they seed `CLAUDE.md`); a `file:line` anchor rots *silently* at the next
+  edit, pointing confidently at the wrong code. Cite `file › Namespace.Class.Method`; a
+  line number is an optional ephemeral hint only (`~L114 at write time`), and a rename
+  is recoverable via `git log`/grep whereas a stale line is not. For symbol-less files
+  (`.config`, `.csproj`, `.wxs`, XML), anchor to a stable landmark — the element/key or
+  a short quoted string — never a bare line.
