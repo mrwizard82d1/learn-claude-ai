@@ -6,11 +6,10 @@
 **Weekends:** off the plan. Saturday = *optional* catch-up if a weekday slipped; **Sunday always off.**
 **Evidence:** commit after each session — the git log is the proof of progress for the OKR.
 **▶ Next session (resume here):**
-1. **Grade the RPA architecture diagrams** (canonical: `RPA/_laj/rpa-architecture/`, readable from here) against your own knowledge — session grouping, WCF `9296` / REST `7047` seams.
-2. Decide the **`Sdk=Web` / `AddWindowsService` entry-point encode** for `discovery.md` (yes/no).
-3. Move the RPA arch doc from `./tmp/` → **RPA's `_laj/architecture/`** (proprietary; keep it out of this public repo).
-4. Then the **`CLAUDE.md`** box on RPA — the orientation doc you generated *is the seed* for it, so you're most of the way there.
-*(Custom subagent ✅ + `architecture-view` skill ✅ + ran both live on RPA ✅ — see logs below.)*
+1. **The `CLAUDE.md` box on RPA** — the main open Week-1 item; your orientation doc (`RPA/_laj/rpa-architecture/`) *is the seed*. Sketch what it distills → run `/init` in the RPA session → refine.
+2. *Optional skill polish:* make `architecture-view` **emit an index** templated on your own Orchid go-by (`experiments/orchid/docs_dev/README.md` — Purpose & Scope → "just sketches" caveat → 4+1 sections + TOC), and **prefer SVG** output.
+3. *Parked:* harden `repro-planner` (broad Bash/Write); apply the symbol-anchor rule to it.
+*(Done: RPA-diagram grading — approach validated, deep accuracy TBD as you learn RPA · `Sdk=Web`/`AddWindowsService` encode ✅ · RPA doc already lives in `_laj` ✅ · symbol-anchor rule ✅.)*
 
 **Applied track — skill (log 2026-09-15):** harvested the review-relevant slice of
 [`notes/legacy-workflow.md`](./notes/legacy-workflow.md) (the diagnosis + step 5) into **6 cue→check→why
