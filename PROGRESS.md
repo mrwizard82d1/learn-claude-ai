@@ -72,6 +72,16 @@ signal, present the list, and CONFIRM scope with the user before drawing** (core
 knowledge); compute the **evidence profile over the confirmed scope only** (peripheral exes skew N, not
 just add nodes). Precision/recall pendulum made explicit. **Re-copy to both hosts.**
 
+**Autonomous agent authoring (log 2026-09-21):** continued using `legacy-archaeologist` + `architecture-view`
+on RPA. Also — **independently authored a new agent for real work: `repro-planner`** ("Turns a Jira bug
+ticket into a MANUAL, human-executable reproduction plan before any diagnosis begins"). No hand-holding —
+the pattern transferred. Design embodies the plan's disciplines: repro-before-diagnosis (= understand-
+before-change / characterize-before-fix / RED-before-green — the repro plan is the human precursor to a
+failing test), and "manual/human-executable" keeps the human as oracle (no confabulated repro). Composes
+into a pipeline: repro-planner → (human reproduces) → legacy-archaeologist → fix behind a test. Strong
+evidence toward the **Phase 1 exit** criterion (drive the whole tool surface). Open Q: does it read Jira
+via the Atlassian MCP connector? (if so, that's the "connect one MCP server" practice item, in real use).
+
 ## Time budget (reality check)
 Remaining ≈ **~17 hours**. Weekdays Sep 8 → Wed Sep 30 (Mon Sep 7 is **Labor Day** — off) = **17 sessions** at ~1 hr ≈ 17 hrs.
 → **Fits within weekdays alone**, essentially zero slack. Front-load; a slipped weekday gets caught up on a Saturday, never by cramming Sunday.
