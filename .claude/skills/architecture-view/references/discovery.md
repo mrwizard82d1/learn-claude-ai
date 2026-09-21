@@ -11,6 +11,15 @@ Find every runnable root:
 - Windows services (`ServiceBase`), `Worker` / `BackgroundService` hosts
 - multiple startup projects in the `.sln`; scheduled tasks / CLI tools
 
+**Gotcha — an executable can have NO `OutputType` (the RPA miss).** A project can be a
+runnable process with no `<OutputType>` element at all: e.g. `Sdk="Microsoft.NET.Sdk.Web"`
+turned into a Windows service via `AddWindowsService()` / `UseWindowsService()` /
+`AddHostedService()` / a `BackgroundService`, often gated on a `--mode=service` arg — and
+with **no `ServiceBase` anywhere**. An `OutputType` grep AND a `ServiceBase` grep both miss
+it. So also scan for `Sdk="...Web"`, `AddWindowsService`, `UseWindowsService`,
+`AddHostedService`, `BackgroundService`, and `Host.CreateDefaultBuilder` /
+`WebApplication.CreateBuilder` with a service-mode branch. Do not trust `OutputType` alone.
+
 A solution with N executables is **N processes** — map them as separate top-level nodes,
 not one blob.
 
