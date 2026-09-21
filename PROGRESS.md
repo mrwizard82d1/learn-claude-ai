@@ -109,7 +109,7 @@ Remaining ≈ **~17 hours**. Weekdays Sep 8 → Wed Sep 30 (Mon Sep 7 is **Labor
 **Phase 1 (remainder)**
 - [ ] Anthropic Academy: **subagents** + **MCP** modules · ~1h
 - [x] Practice: **custom subagent** — built two read-only agents (`note-distiller`, `legacy-archaeologist`); still to do: one **custom slash command** · ~0.5h
-- [ ] Practice: wire one **hook**; connect one **MCP server**; run `claude -p "..."` · ~1h
+- [~] Practice: connect one **MCP server** ✅ (`repro-planner` reads Jira via the Atlassian MCP — read-only issue tools, in real use); still to do: wire one **hook**, run `claude -p "..."` · ~1h
 - [x] Practice: context hygiene — used `/compact` (mid-session save) and `/clear` (to de-poison the RPA discovery run) in real use · (`/rewind` not yet tried — the one remaining)
 - [ ] **Phase 1 exit:** you can drive the whole tool surface, not just familiar paths
 **Phase 2 — formalize the discipline**
