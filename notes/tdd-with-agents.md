@@ -11,11 +11,21 @@ Uncle Bob's "discipline over vibes," made concrete. The agent is fast hands; the
 judgment stays mine.
 
 ## The micro-cycle, and where the agent fights it
-- **RED first** — no production code until a failing test exists *and I've watched it
-  fail*. (An import/compile failure counts as the first red.)
+- **RED first — and prefer a *behavioral* red.** No production code until a failing test
+  exists *and I've watched it fail*. An import/compile/missing-symbol failure technically
+  counts, but it's **incidental** — low information, and an agent almost never ships code
+  that doesn't even load, so that red barely exercises anything. Prefer a first test that
+  fails on an **assertion** (a wrong *result*) — even if it costs a stub returning an
+  arbitrary value first. "It produced the wrong value" tells me far more than "it didn't
+  load."
 - **GREEN minimal** — the *simplest* thing that passes, even "fake it" (`return 0`).
 - **REFACTOR or skip** — refactor is an *opportunity* each cycle, not an obligation;
   recognizing "nothing to clean" is part of the discipline (don't gold-plate).
+- **Interrogate the *surprising pass*: "Oh — it passed. Why?"** An unexpected green is as
+  informative as an unexpected red — often a coincidental / wrong-reason pass hiding a
+  latent bug (e.g. a string containing a space read as an integer yielding `32`; or, in
+  this kata, `add("0")` passing under the dumb `return 0` merely because `0 == 0`). Chase
+  unexpected greens as hard as reds — a test that can't fail can't drive anything.
 
 The **AI gap** (left unguided, the agent will): (a) skip the red — hand back
 implementation + tests together; (b) **over-implement** — reach for the general
