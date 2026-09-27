@@ -61,3 +61,11 @@ textbook default and be *silently* wrong. Assumptions like these belong in the s
 - **Earned refactor (after F4 green):** two near-identical rotation maps = the duplication
   that justifies unifying L/R into a shared rotation (ordered headings + `index ± 1 mod 4`).
 
+## Decisions — F5 (move forward)  [2026-09-27]
+- **`M` moves one cell in the heading direction** (per the coordinate convention):
+  `N → (x, y+1)`, `E → (x+1, y)`, `S → (x, y−1)`, `W → (x−1, y)`.
+- **`move_forward()` returns a NEW (immutable) Rover**; heading unchanged; original untouched.
+- **No bounds** — F7 defers bounds; `M` may reach any integer coordinate.
+- First feature to exercise the coordinate convention *behaviorally* → its test is the
+  convention's guard (a mis-signed axis fails here).
+

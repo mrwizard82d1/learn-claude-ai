@@ -100,6 +100,26 @@ class MarsRoverTests(unittest.TestCase):
                 self.assertEqual(rover.heading, expected)
                 self.assertEqual((rover.x, rover.y), (x, y))   # turns never move
 
+    # F5 — move forward one cell in the current heading. This is the first test to
+    # exercise the coordinate convention (N=+y, E=+x, ...); its deltas map is an
+    # INDEPENDENT statement of that convention. Heading unchanged; original untouched.
+    # (mars-rover.feature :: Scenario Outline "Moving forward advances one cell ...")
+    def test_move_forward_advances_one_cell_per_heading(self):
+        deltas = {
+            Heading.N: (0, 1),
+            Heading.E: (1, 0),
+            Heading.S: (0, -1),
+            Heading.W: (-1, 0),
+        }
+        for heading, (dx, dy) in deltas.items():
+            x, y = random.randint(-1000, 1000), random.randint(-1000, 1000)
+            with self.subTest(heading=heading, x=x, y=y, dx=dx, dy=dy):
+                rover = Rover(x, y, heading)
+                moved = rover.move_forward()
+                self.assertEqual((moved.x, moved.y), (x + dx, y + dy))  # advanced per convention
+                self.assertEqual(moved.heading, heading)                # heading unchanged
+                self.assertEqual((rover.x, rover.y), (x, y))            # original untouched
+
 
 if __name__ == "__main__":
     unittest.main()

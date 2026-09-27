@@ -65,3 +65,20 @@ Feature: Command a rover on a grid
       | E     | S   |
       | S     | W   |
       | W     | N   |
+
+  @f5
+  Scenario Outline: Moving forward advances one cell in the current heading
+    Given a rover at position (<x>, <y>) facing <heading>
+    When it moves forward
+    Then its position is (<nx>, <ny>)
+    And it is still facing <heading>
+    And the original rover is unchanged   # immutability: move_forward returns a NEW rover
+
+    # One cell per heading (per the N=+y / E=+x convention). Coords illustrative; the
+    # implementing test randomizes the start position.
+    Examples:
+      | heading | x | y | nx | ny |
+      | N       | 5 | 5 | 5  | 6  |
+      | E       | 5 | 5 | 6  | 5  |
+      | S       | 5 | 5 | 5  | 4  |
+      | W       | 5 | 5 | 4  | 5  |
