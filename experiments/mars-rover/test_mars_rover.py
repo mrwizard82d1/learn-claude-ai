@@ -120,6 +120,35 @@ class MarsRoverTests(unittest.TestCase):
                 self.assertEqual(moved.heading, heading)                # heading unchanged
                 self.assertEqual((rover.x, rover.y), (x, y))            # original untouched
 
+    # F6 — execute(commands) folds a lowercase l/r/m string over the ops, left-to-right,
+    # returning the final (new) rover. Checked against an INDEPENDENT oracle that reuses
+    # the turn maps + move deltas. (mars-rover.feature :: "Executing a command string ...")
+    def test_execute_runs_a_random_command_string(self):
+        left_of = {Heading.N: Heading.W, Heading.W: Heading.S,
+                   Heading.S: Heading.E, Heading.E: Heading.N}
+        right_of = {Heading.N: Heading.E, Heading.E: Heading.S,
+                    Heading.S: Heading.W, Heading.W: Heading.N}
+        deltas = {Heading.N: (0, 1), Heading.E: (1, 0),
+                  Heading.S: (0, -1), Heading.W: (-1, 0)}
+        for _ in range(4):
+            x0, y0 = random.randint(-1000, 1000), random.randint(-1000, 1000)
+            start = random.choice(list(Heading))
+            commands = "".join(random.choice("lrm") for _ in range(random.randint(1, 12)))
+
+            ex, ey, eh = x0, y0, start                 # independent oracle
+            for c in commands:
+                if c == "l":
+                    eh = left_of[eh]
+                elif c == "r":
+                    eh = right_of[eh]
+                else:  # "m"
+                    dx, dy = deltas[eh]
+                    ex, ey = ex + dx, ey + dy
+
+            final = Rover(x0, y0, start).execute(commands)
+            with self.subTest(start=start, commands=commands, expected=(ex, ey, eh)):
+                self.assertEqual((final.x, final.y, final.heading), (ex, ey, eh))
+
 
 if __name__ == "__main__":
     unittest.main()

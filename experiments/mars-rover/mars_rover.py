@@ -43,3 +43,17 @@ class Rover:
     def move_forward(self):
         dx, dy = _MOVE[self.heading]
         return replace(self, x=self.x + dx, y=self.y + dy)
+
+    def execute(self, commands):
+        # A fold over the command string: the rover is the accumulator, threaded
+        # through one command at a time. (Unknown chars are silently skipped for now;
+        # raise-vs-ignore is the deferred F9 decision.)
+        rover = self
+        for command in commands:
+            if command == "l":
+                rover = rover.turn_left()
+            elif command == "r":
+                rover = rover.turn_right()
+            elif command == "m":
+                rover = rover.move_forward()
+        return rover

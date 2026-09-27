@@ -69,3 +69,11 @@ textbook default and be *silently* wrong. Assumptions like these belong in the s
 - First feature to exercise the coordinate convention *behaviorally* → its test is the
   convention's guard (a mis-signed axis fails here).
 
+## Decisions — F6 (execute a command string)  [2026-09-27]
+- **`execute(commands: str)`** folds a **lowercase** `l`/`r`/`m` string over
+  `turn_left` / `turn_right` / `move_forward`, left-to-right, returning the final
+  (new, immutable) Rover — a composition of the immutable ops.
+- **Lowercase `l`/`r`/`m`** (more visually distinct/readable). Mixed-case / uppercase /
+  invalid chars are **F9** (deferred).
+- **Empty string → rover unchanged.**
+

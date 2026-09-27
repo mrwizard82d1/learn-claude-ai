@@ -82,3 +82,11 @@ Feature: Command a rover on a grid
       | E       | 5 | 5 | 6  | 5  |
       | S       | 5 | 5 | 5  | 4  |
       | W       | 5 | 5 | 4  | 5  |
+
+  @f6
+  Scenario: Executing a command string applies lowercase l/r/m left-to-right
+    Given a rover at position (1, 2) facing N
+    When it executes "lmlmm"
+    Then its state is "0 0 S"
+    # The implementing test also runs RANDOM l/r/m strings checked against an independent
+    # oracle (turn maps + move deltas). Empty string -> unchanged. Case/invalid chars: F9.
