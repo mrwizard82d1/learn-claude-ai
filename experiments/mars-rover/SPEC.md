@@ -41,3 +41,16 @@ decision-heavy F7–F9 once the design has taught us more.
 - Behavioral spec (scenarios + Given/When/Then) lives in **`mars-rover.feature`** (manual
   documentation; `test_mars_rover.py` implements it, kept in sync by hand).
 
+### Convention caveat (real-world discipline)
+The coordinate and rotation conventions above are the **assumed "standard"** (compass/math).
+In real work these are **domain knowledge — verify with a domain expert**, because domains
+*invert the obvious*: e.g. oilfield **z is positive downward**; screen coordinates are often
+**y-down**; aviation headings run clockwise-from-north. An agent will confidently assume the
+textbook default and be *silently* wrong. Assumptions like these belong in the spec, flagged.
+
+## Decisions — F3 (turn left)  [2026-09-27]
+- **`L` = 90° counterclockwise:** `N → W → S → E → N`.
+- **`turn_left()` returns a NEW (immutable) Rover** with the rotated heading; **position
+  unchanged** (heading-only — no coupling to x/y).
+- Internal rotation representation left to the tests (fake-it → triangulate).
+

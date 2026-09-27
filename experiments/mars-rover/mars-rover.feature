@@ -18,6 +18,7 @@ Feature: Command a rover on a grid
   #   F7     grid bounds behavior        -- decision-heavy (wrap? block? error?)
   #   F8     obstacle detection / handling -- decision-heavy
   #   F9     invalid command / bad input -- decision-heavy
+  #   INV    (cross-cutting) every operation returns a NEW rover; the original is never mutated
 
   @f1 @f2
   Scenario Outline: A newly created rover reports its position and heading
@@ -34,3 +35,18 @@ Feature: Command a rover on a grid
       | +x -y    | 47  | -8  | E       |
       | -x +y    | -5  | 21  | S       |
       | -x -y    | -63 | -9  | W       |
+
+  @f3
+  Scenario Outline: Turning left rotates the heading 90 degrees counterclockwise
+    Given a rover facing <start>
+    When it turns left
+    Then it is facing <end>
+    And its position is unchanged
+    And the original rover still faces <start>   # immutability: turn_left returns a NEW rover
+
+    Examples: the full counterclockwise cycle
+      | start | end |
+      | N     | W   |
+      | W     | S   |
+      | S     | E   |
+      | E     | N   |

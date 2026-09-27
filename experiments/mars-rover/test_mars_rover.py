@@ -37,6 +37,25 @@ class MarsRoverTests(unittest.TestCase):
             with self.subTest(heading=heading, expected=expected):
                 self.assertEqual(Rover(x, y, heading).report(), expected)
 
+    # F3 — turning left rotates the heading 90 deg CCW (full cycle N->W->S->E->N),
+    # position unchanged, and the ORIGINAL rover is not mutated (returns a NEW rover).
+    # (mars-rover.feature :: Scenario Outline "Turning left rotates ...")
+    def test_turn_left_rotates_ccw_and_is_immutable(self):
+        cycle = [
+            (Heading.N, Heading.W),
+            (Heading.W, Heading.S),
+            (Heading.S, Heading.E),
+            (Heading.E, Heading.N),
+        ]
+        for start, end in cycle:
+            x, y = random.randint(-1000, 1000), random.randint(-1000, 1000)
+            with self.subTest(start=start, end=end, x=x, y=y):
+                rover = Rover(x, y, start)
+                turned = rover.turn_left()
+                self.assertEqual(turned.heading, end)           # rotated CCW
+                self.assertEqual((turned.x, turned.y), (x, y))  # position unchanged
+                self.assertEqual(rover.heading, start)          # original untouched
+
 
 if __name__ == "__main__":
     unittest.main()
