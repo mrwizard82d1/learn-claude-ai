@@ -50,3 +50,18 @@ Feature: Command a rover on a grid
       | W     | S   |
       | S     | E   |
       | E     | N   |
+
+  @f4
+  Scenario Outline: Turning right rotates the heading 90 degrees clockwise
+    Given a rover facing <start>
+    When it turns right
+    Then it is facing <end>
+    And its position is unchanged
+    And the original rover still faces <start>   # immutability: turn_right returns a NEW rover
+
+    Examples: the full clockwise cycle
+      | start | end |
+      | N     | E   |
+      | E     | S   |
+      | S     | W   |
+      | W     | N   |

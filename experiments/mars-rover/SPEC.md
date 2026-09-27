@@ -54,3 +54,10 @@ textbook default and be *silently* wrong. Assumptions like these belong in the s
   unchanged** (heading-only — no coupling to x/y).
 - Internal rotation representation left to the tests (fake-it → triangulate).
 
+## Decisions — F4 (turn right)  [2026-09-27]
+- **`R` = 90° clockwise:** `N → E → S → W → N`. (Same expert-caveat as F3.)
+- **`turn_right()` returns a NEW (immutable) Rover**; symmetric to `turn_left()`;
+  heading-only, position + original preserved.
+- **Earned refactor (after F4 green):** two near-identical rotation maps = the duplication
+  that justifies unifying L/R into a shared rotation (ordered headings + `index ± 1 mod 4`).
+
