@@ -130,7 +130,11 @@ Remaining ≈ **~17 hours**. Weekdays Sep 8 → Wed Sep 30 (Mon Sep 7 is **Labor
 - [ ] Willison — "Red/green TDD" chapter · 30m
 - [ ] "TDD & AI: the gap between claim and practice" · 15m
 - [ ] GitHub Spec Kit — skim · ~1h
-- [~] Practice: **red → green → refactor** done via the String Calculator kata (`experiments/kata-string-calculator/`) — 4 reps + a **requirements-judgment episode**: implemented the kata's "negatives raise" idea, watched it break existing tests, then *consciously dropped it* on physics grounds (negatives carry information). Lesson: spec ideas are hypotheses; a breaking existing test is the validation trigger; human domain judgment is irreducible. **Still to do: the `spec → plan` front half** (a spec-driven exercise on an ambiguous problem). · ~1h
+- [x] Practice: **spec → plan → red → green → refactor** — String Calculator kata + the Mars Rover spec-driven exercise (see below) (`experiments/kata-string-calculator/`) — 4 reps + a **requirements-judgment episode**: implemented the kata's "negatives raise" idea, watched it break existing tests, then *consciously dropped it* on physics grounds (negatives carry information). Lesson: spec ideas are hypotheses; a breaking existing test is the validation trigger; human domain judgment is irreducible. **`spec → plan` front half: DONE** via the **Mars Rover** spec-driven exercise
+(`experiments/mars-rover/`) — outline-first recursion, explicit **non-goals**, conventions-as-hypotheses
+(verify-with-expert), `SPEC.md` + `mars-rover.feature` living spec, behavioral-first-red / fake-it→triangulate
+/ earned refactor / anchor + independent-oracle tests. **Walking skeleton F1–F6 green & committed;**
+decision-heavy **F7–F9** (bounds / obstacles / invalid input) remain — a good focused next session. · ~1h
 
 ## Week 3 · Mon Sep 21 – Fri Sep 25 · Phase 3 · ~5h
 - [ ] Subagents & orchestration guide · 45m
