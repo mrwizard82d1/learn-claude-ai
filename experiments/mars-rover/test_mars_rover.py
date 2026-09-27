@@ -74,6 +74,32 @@ class MarsRoverTests(unittest.TestCase):
                 self.assertEqual((turned.x, turned.y), (x, y))  # position unchanged
                 self.assertEqual(rover.heading, start)          # original untouched
 
+    # F3/F4 (thoroughness) — INTERLEAVED random L/R sequences (with repetitions) must land
+    # where an INDEPENDENT oracle predicts. Guards against any hidden stateful coupling in
+    # rotation (there should be none — the rover is immutable). Oracle uses explicit
+    # per-direction maps; the impl uses modular arithmetic, so this cross-checks it.
+    def test_random_interleaved_turn_sequences(self):
+        left_of = {Heading.N: Heading.W, Heading.W: Heading.S,
+                   Heading.S: Heading.E, Heading.E: Heading.N}
+        right_of = {Heading.N: Heading.E, Heading.E: Heading.S,
+                    Heading.S: Heading.W, Heading.W: Heading.N}
+        for _ in range(4):
+            start = random.choice(list(Heading))
+            x, y = random.randint(-1000, 1000), random.randint(-1000, 1000)
+            turns = [random.choice("LR") for _ in range(random.randint(2, 8))]
+
+            expected = start                       # independent oracle
+            for t in turns:
+                expected = left_of[expected] if t == "L" else right_of[expected]
+
+            rover = Rover(x, y, start)             # apply via the implementation
+            for t in turns:
+                rover = rover.turn_left() if t == "L" else rover.turn_right()
+
+            with self.subTest(start=start, turns="".join(turns), expected=expected):
+                self.assertEqual(rover.heading, expected)
+                self.assertEqual((rover.x, rover.y), (x, y))   # turns never move
+
 
 if __name__ == "__main__":
     unittest.main()
