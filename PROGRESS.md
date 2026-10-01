@@ -118,8 +118,9 @@ clean sequence to finish: **~5–6 focused ~1-hr sessions.** (The dated Week 1�
   Indragie's macOS article (20m); write a "stay current" cadence into `notes/`; **final completion
   commit** 🎉. (1 session, light)
 
-**Optional enrichment (not required — you learned these by *doing*):** the Phase-2 reading list
-(Martin "Clean AI" video, Harper Reed, Willison red/green, GitHub Spec Kit).
+**Reading (Larry *wants* to do these — not skipped; sequence when we reach them):** the Phase-2 list
+(Martin "Clean AI" video, Harper Reed, Willison red/green, GitHub Spec Kit) and the Phase-3 readings.
+They deepen the *why* behind the practice already done; fold into sessions A/D or their own slot.
 
 ---
 
