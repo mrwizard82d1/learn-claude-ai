@@ -95,6 +95,34 @@ not raw line number** — lines rot silently at the next edit; a symbol survives
 git-recoverable; line optional+ephemeral; symbol-less files use a stable landmark. Applied to BOTH
 `legacy-archaeologist` and `architecture-view`; `repro-planner` should get the same (his work agent).
 
+## Finish-line plan (post-deadline — no date pressure)
+Sep-30 deadline passed at **~65% complete** (of the whole 5-phase plan). No dates now — just a
+clean sequence to finish: **~5–6 focused ~1-hr sessions.** (The dated Week 1–4 schedule below is
+**historical**.)
+
+**Housekeeping first (quick, overdue):**
+- [ ] Disable the two cloud reminder routines (deadline passed) — https://claude.ai/code/routines
+- [ ] Scratch cleanup when convenient (`experiments/orchid/`, `_dryrun/`) — see maintenance-backlog
+
+**Sessions (ordered by value / dependency):**
+- [ ] **A — Finish Mars Rover F7–F9** — grid bounds (wrap/block/error?) · obstacles · invalid/mixed-case
+  input. The richest remaining spec-driven practice; completes Phase-2/3 *doing*. (1–2 sessions)
+- [ ] **B — Crystallize the `tdd-pairing` skill** from `notes/tdd-with-agents.md` (now incl. spec→plan).
+  practice → note → **skill**. (1 session)
+- [ ] **C — Close Phase-1 tool gaps** — one custom **slash command**, wire one **hook**, run `claude -p`
+  once, try `/rewind` once. Finishes Phase 1 to 100%. (1 session)
+- [ ] **D — Phase 3 formal** — write **one small eval** (checklist-based is fine — e.g. for
+  `architecture-view` or the pr-review skill) + a real **adversarial-review** pass (implement agent +
+  separate review subagent); skim Ronacher / the Boris Cherny talk. (1–2 sessions)
+- [ ] **E — Phase 4 habit + completion** — subscribe to Willison's blog / an agentic newsletter; read
+  Indragie's macOS article (20m); write a "stay current" cadence into `notes/`; **final completion
+  commit** 🎉. (1 session, light)
+
+**Optional enrichment (not required — you learned these by *doing*):** the Phase-2 reading list
+(Martin "Clean AI" video, Harper Reed, Willison red/green, GitHub Spec Kit).
+
+---
+
 ## Time budget (reality check)
 Remaining ≈ **~17 hours**. Weekdays Sep 8 → Wed Sep 30 (Mon Sep 7 is **Labor Day** — off) = **17 sessions** at ~1 hr ≈ 17 hrs.
 → **Fits within weekdays alone**, essentially zero slack. Front-load; a slipped weekday gets caught up on a Saturday, never by cramming Sunday.
