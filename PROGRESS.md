@@ -11,7 +11,7 @@
 3. *Parked:* harden `repro-planner` (broad Bash/Write); apply the symbol-anchor rule to it.
 4. *Learning experiment (informs #1):* run **`/init` on the fresh Orchid clone** — `experiments/orchid/` (gitignored throwaway; **open a session rooted THERE**, `cd experiments/orchid && claude`, NOT this learn-claude-ai session) to see what auto-bootstrap captures on a codebase you know. **Compare three ways:** `/init` output vs your hand-written `docs_dev/README.md` vs our `architecture-view`/`legacy-archaeologist` output → "what's auto-derivable vs needs-a-human vs needs-a-deep-read." Don't commit it (git history untouched); `rm CLAUDE.md` after. Directly informs how to hand-augment RPA's `CLAUDE.md` (#1).
 5. **Continue the Mars Rover spec-driven exercise** (`experiments/mars-rover/`): walking skeleton **F1–F6 done**; next are the decision-heavy **F7 (grid bounds — wrap/block/error?), F8 (obstacles), F9 (invalid / mixed-case input)** — where the spec-decisions actually bite. Same rhythm: spec the ambiguity → you decide → plan → red→green→refactor.
-6. **Then the sequel:** crystallize [`notes/tdd-with-agents.md`](./notes/tdd-with-agents.md) (now with spec→plan material) into a **personal `tdd-pairing` skill** (user-level; a "keep-me-honest" skill enforcing behavioral-first-red, fake-it→triangulate, surprising-pass checks, spec-ideas-as-hypotheses, conventions-as-hypotheses). Order stays: **practice → note → skill.**
+6. ✅ **DONE 2026-10-01 — the sequel skill:** crystallized [`notes/tdd-with-agents.md`](./notes/tdd-with-agents.md) into the **personal `tdd-pairing` skill** (user-level, both hosts; commit `6e78d57`). See finish-line **Session B** below. **▶ So the real next working step is #5 above: Mars Rover F7.**
 *(Done: RPA-diagram grading — approach validated, deep accuracy TBD as you learn RPA · `Sdk=Web`/`AddWindowsService` encode ✅ · RPA doc already lives in `_laj` ✅ · symbol-anchor rule ✅.)*
 
 **Applied track — skill (log 2026-09-15):** harvested the review-relevant slice of
@@ -103,12 +103,17 @@ clean sequence to finish: **~5–6 focused ~1-hr sessions.** (The dated Week 1�
 **Housekeeping first (quick, overdue):**
 - [ ] Disable the two cloud reminder routines (deadline passed) — https://claude.ai/code/routines
 - [ ] Scratch cleanup when convenient (`experiments/orchid/`, `_dryrun/`) — see maintenance-backlog
+- [x] Removed a stray mis-placed `architecture-view` copy at the Windows skills root (2026-10-01) — see maintenance-backlog
 
 **Sessions (ordered by value / dependency):**
 - [ ] **A — Finish Mars Rover F7–F9** — grid bounds (wrap/block/error?) · obstacles · invalid/mixed-case
   input. The richest remaining spec-driven practice; completes Phase-2/3 *doing*. (1–2 sessions)
-- [ ] **B — Crystallize the `tdd-pairing` skill** from `notes/tdd-with-agents.md` (now incl. spec→plan).
-  practice → note → **skill**. (1 session)
+- [x] **B — Crystallize the `tdd-pairing` skill** — ✅ **DONE 2026-10-01** (commit `6e78d57`). Built
+  `.claude/skills/tdd-pairing/` (SKILL.md + `references/worked-examples.md` as the refinement seam)
+  from `notes/tdd-with-agents.md` + the Mars Rover / String-Calculator reps. Encodes the double loop
+  (outer acceptance wrapping inner red→green→refactor), the AI-gap self-checklist, Larry's planning
+  idiom, and spec-ideas-as-hypotheses. Mirrored to **both hosts'** user-level (`~/.claude/skills/` +
+  `C:\…\.claude\skills\`); now also referenced in the global `CLAUDE.md`. practice → note → skill ✅.
 - [ ] **C — Close Phase-1 tool gaps** — one custom **slash command**, wire one **hook**, run `claude -p`
   once, try `/rewind` once. Finishes Phase 1 to 100%. (1 session)
 - [ ] **D — Phase 3 formal** — write **one small eval** (checklist-based is fine — e.g. for
