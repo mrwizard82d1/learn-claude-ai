@@ -57,3 +57,24 @@ class Rover:
             elif command == "m":
                 rover = rover.move_forward()
         return rover
+
+
+# --- F7: grid bounds (halt-and-report) ---
+@dataclass(frozen=True)
+class Completed:
+    rover: Rover
+
+
+@dataclass(frozen=True)
+class Halted:
+    rover: Rover
+    index: int
+    command: str
+
+
+@dataclass(frozen=True)
+class Grid:
+    half_extent: int
+
+    def execute(self, rover, commands):
+        return Halted(rover, 0, commands)  # fake-it: forced general by the next test

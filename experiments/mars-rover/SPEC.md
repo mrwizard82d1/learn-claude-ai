@@ -77,3 +77,22 @@ textbook default and be *silently* wrong. Assumptions like these belong in the s
   invalid chars are **F9** (deferred).
 - **Empty string → rover unchanged.**
 
+
+## Decisions — F7 (grid bounds)  [2026-11-02]
+- **Why bounded:** the rover must stay within radio contact with Earth. Leaving the comms
+  region loses the rover, so the bound is a safety rule, not a teaching constraint.
+- **Origin = landing site** (also the fixed relay/base). Coordinates are signed; the bound is
+  symmetric about the origin: one parameter, `Grid(half_extent)`.
+- **Shape: square, edge inclusive** — in range iff `|x| <= N` and `|y| <= N`. A move to `N+1`
+  is refused. *(Simplification: real comms range is a disc / line-of-sight region — verify
+  with a domain expert. Relay assumed STATIC; a moving orbiter relay would break the
+  timeless non-goal.)*
+- **Wrap rejected:** teleporting across the grid is physically meaningless.
+- **Rule lives in `Grid`, not `Rover`:** `Grid.execute(rover, commands)`. `Rover.execute`
+  stays unbounded, so F1–F6 stay valid untouched.
+- **Refused move halts the batch** and reports, so Earth can re-plan (later commands were
+  planned assuming the move happened). Turns are never refused.
+- **Result type, not exceptions** (stdlib frozen dataclasses):
+  `Completed(rover)` | `Halted(rover, index, command)` — `rover` = last good state;
+  `index` = position of the refused command in the string.
+- **Open (hold for last):** start position out of bounds (placement) — a different seam.

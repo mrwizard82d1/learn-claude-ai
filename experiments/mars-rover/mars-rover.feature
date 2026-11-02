@@ -15,7 +15,7 @@ Feature: Command a rover on a grid
   #   F4     turn right (R)
   #   F5     move forward one cell (M)
   #   F6     execute a command string ("LMLMM")
-  #   F7     grid bounds behavior        -- decision-heavy (wrap? block? error?)
+  #   F7     grid bounds (square, inclusive, halt-and-report)   [detailed below]
   #   F8     obstacle detection / handling -- decision-heavy
   #   F9     invalid command / bad input -- decision-heavy
   #   INV    (cross-cutting) every operation returns a NEW rover; the original is never mutated
@@ -90,3 +90,13 @@ Feature: Command a rover on a grid
     Then its state is "0 0 S"
     # The implementing test also runs RANDOM l/r/m strings checked against an independent
     # oracle (turn maps + move deltas). Empty string -> unchanged. Case/invalid chars: F9.
+
+  @f7
+  Scenario: A move that would leave the grid halts the batch and reports where
+    Given a grid of half-extent 5
+    And a rover at position (5, -2) facing E
+    When it executes "m"
+    Then the batch halts before command 0 ("m")
+    And the reported rover is still at (5, -2) facing E
+    # Bounds exist to keep the rover in radio contact. Edge cells are in range (inclusive);
+    # a move to N+1 is refused. Turns are never refused. Later commands are NOT applied.

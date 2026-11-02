@@ -1,7 +1,7 @@
 import random
 import unittest
 
-from mars_rover import Heading, Rover
+from mars_rover import Completed, Grid, Halted, Heading, Rover
 
 
 class MarsRoverTests(unittest.TestCase):
@@ -148,6 +148,13 @@ class MarsRoverTests(unittest.TestCase):
             final = Rover(x0, y0, start).execute(commands)
             with self.subTest(start=start, commands=commands, expected=(ex, ey, eh)):
                 self.assertEqual((final.x, final.y, final.heading), (ex, ey, eh))
+
+    # F7 (anchor) — a move that would leave the grid is refused: the batch HALTS before it and
+    # reports the last good rover, the index, and the refused command. Hardcoded literals.
+    # (mars-rover.feature :: "A move that would leave the grid halts the batch ...")
+    def test_move_off_the_edge_halts_and_reports(self):
+        rover = Rover(5, -2, Heading.E)
+        self.assertEqual(Grid(5).execute(rover, "m"), Halted(rover, 0, "m"))
 
 
 if __name__ == "__main__":
