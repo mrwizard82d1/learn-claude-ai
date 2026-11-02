@@ -10,7 +10,10 @@
 2. *Optional skill polish:* make `architecture-view` **emit an index** templated on your own Orchid go-by (`experiments/orchid/docs_dev/README.md` — Purpose & Scope → "just sketches" caveat → 4+1 sections + TOC), and **prefer SVG** output.
 3. *Parked:* harden `repro-planner` (broad Bash/Write); apply the symbol-anchor rule to it.
 4. *Learning experiment (informs #1):* run **`/init` on the fresh Orchid clone** — `experiments/orchid/` (gitignored throwaway; **open a session rooted THERE**, `cd experiments/orchid && claude`, NOT this learn-claude-ai session) to see what auto-bootstrap captures on a codebase you know. **Compare three ways:** `/init` output vs your hand-written `docs_dev/README.md` vs our `architecture-view`/`legacy-archaeologist` output → "what's auto-derivable vs needs-a-human vs needs-a-deep-read." Don't commit it (git history untouched); `rm CLAUDE.md` after. Directly informs how to hand-augment RPA's `CLAUDE.md` (#1).
-5. **Continue the Mars Rover spec-driven exercise** (`experiments/mars-rover/`): walking skeleton **F1–F6 done**; next are the decision-heavy **F7 (grid bounds — wrap/block/error?), F8 (obstacles), F9 (invalid / mixed-case input)** — where the spec-decisions actually bite. Same rhythm: spec the ambiguity → you decide → plan → red→green→refactor.
+5. **Continue the Mars Rover spec-driven exercise** (`experiments/mars-rover/`): walking skeleton **F1–F6 done**; **F7 (grid bounds) IN PROGRESS** (2026-11-02, commit `040ca06`): spec decided + first anchor red→fake-it green. Then **F8 (obstacles), F9 (invalid / mixed-case input)** — where the spec-decisions actually bite. Same rhythm: spec the ambiguity → you decide → plan → red→green→refactor.
+   - **F7 decisions (in `SPEC.md`):** bounded to keep radio contact; origin = landing site; **square, edge-inclusive** (`|x|,|y| ≤ N`); wrap rejected; rule lives in **`Grid(half_extent)`** (`Rover.execute` stays unbounded, F1–F6 untouched); refused move **halts the batch**; **`Completed(rover)` | `Halted(rover, index, command)`** Result (stdlib frozen dataclasses).
+   - **▶ Resume here:** the `Grid.execute` body is a **hardcoded fake** (`return Halted(rover, 0, commands)`). Next forcing test: an **in-bounds move returns `Completed`**, matching unbounded `Rover.execute` (independent oracle). Then: edge cell reachable (inclusive) · outward at all 4 edges, both signs · turns at the edge allowed · halt mid-batch reports `index` · start-out-of-bounds placement last.
+   - **Housekeeping (separate commit):** `__pycache__/*.pyc` is tracked in git; `.idea/` untracked — untrack pyc + add `.gitignore`.
 6. ✅ **DONE 2026-10-01 — the sequel skill:** crystallized [`notes/tdd-with-agents.md`](./notes/tdd-with-agents.md) into the **personal `tdd-pairing` skill** (user-level, both hosts; commit `6e78d57`). See finish-line **Session B** below. **▶ So the real next working step is #5 above: Mars Rover F7.**
 *(Done: RPA-diagram grading — approach validated, deep accuracy TBD as you learn RPA · `Sdk=Web`/`AddWindowsService` encode ✅ · RPA doc already lives in `_laj` ✅ · symbol-anchor rule ✅.)*
 
@@ -106,7 +109,7 @@ clean sequence to finish: **~5–6 focused ~1-hr sessions.** (The dated Week 1�
 - [x] Removed a stray mis-placed `architecture-view` copy at the Windows skills root (2026-10-01) — see maintenance-backlog
 
 **Sessions (ordered by value / dependency):**
-- [ ] **A — Finish Mars Rover F7–F9** — grid bounds (wrap/block/error?) · obstacles · invalid/mixed-case
+- [ ] **A — Finish Mars Rover F7–F9** — *(F7 started 2026-11-02: spec + first red/fake green, `040ca06`)* — grid bounds · obstacles · invalid/mixed-case
   input. The richest remaining spec-driven practice; completes Phase-2/3 *doing*. (1–2 sessions)
 - [x] **B — Crystallize the `tdd-pairing` skill** — ✅ **DONE 2026-10-01** (commit `6e78d57`). Built
   `.claude/skills/tdd-pairing/` (SKILL.md + `references/worked-examples.md` as the refinement seam)
