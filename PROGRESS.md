@@ -104,7 +104,8 @@ clean sequence to finish: **~5–6 focused ~1-hr sessions.** (The dated Week 1�
 **historical**.)
 
 **Housekeeping first (quick, overdue):**
-- [ ] Disable the two cloud reminder routines (deadline passed) — https://claude.ai/code/routines
+- [x] Cloud reminder routines (2026-11-03): **3:45pm Teams nudge disabled**; **7am Outlook nudge kept ON** with its prompt rewritten for the post-deadline finish-line plan (no deadline pressure; points at this file). Prompt's progress snapshot is frozen as of 2026-11-03 — refresh after milestones. — https://claude.ai/code/routines
+- [x] Untracked compiled `.pyc` files; per-subproject `.gitignore` for kata + mars-rover (`01a8260`)
 - [ ] Scratch cleanup when convenient (`experiments/orchid/`, `_dryrun/`) — see maintenance-backlog
 - [x] Removed a stray mis-placed `architecture-view` copy at the Windows skills root (2026-10-01) — see maintenance-backlog
 
