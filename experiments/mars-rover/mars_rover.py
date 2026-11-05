@@ -77,4 +77,8 @@ class Grid:
     half_extent: int
 
     def execute(self, rover, commands):
-        return Halted(rover, 0, commands)  # fake-it: forced general by the next test
+        final = rover.execute(commands)
+        if abs(final.x) <= self.half_extent and abs(final.y) <= self.half_extent:
+            return Completed(final)
+        # fake-it: index/command are hardcoded until a mid-batch halt test forces them
+        return Halted(rover, 0, commands)

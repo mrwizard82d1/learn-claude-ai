@@ -100,3 +100,13 @@ Feature: Command a rover on a grid
     And the reported rover is still at (5, -2) facing E
     # Bounds exist to keep the rover in radio contact. Edge cells are in range (inclusive);
     # a move to N+1 is refused. Turns are never refused. Later commands are NOT applied.
+
+  @f7
+  Scenario: A batch that stays within the grid completes
+    Given a grid of half-extent 100
+    And a rover at position (3, -43) facing E
+    When it executes "mm"
+    Then the batch completes
+    And the rover is at (5, -43) facing E
+    # Inside the bounds the grid is transparent: same result as the unbounded rover.
+    # The implementing test uses RANDOM starts and command strings, checked against Rover.execute.

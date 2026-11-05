@@ -156,6 +156,21 @@ class MarsRoverTests(unittest.TestCase):
         rover = Rover(5, -2, Heading.E)
         self.assertEqual(Grid(5).execute(rover, "m"), Halted(rover, 0, "m"))
 
+    # F7 (forcing) — a batch that never leaves the grid COMPLETES, and the grid is transparent:
+    # the final rover equals the unbounded Rover.execute result (F6 already pins that, so it is
+    # the oracle). Start within +-50 and at most 12 commands, so with half_extent 100 the
+    # rover cannot reach an edge. Kills the hardcoded Halted fake.
+    # (mars-rover.feature :: @f7 "A batch that stays within the grid completes")
+    def test_in_bounds_batch_completes_like_unbounded(self):
+        grid = Grid(100)
+        for _ in range(4):
+            start = Rover(random.randint(-50, 50), random.randint(-50, 50),
+                          random.choice(list(Heading)))
+            commands = "".join(random.choice("lrm") for _ in range(random.randint(1, 12)))
+            with self.subTest(start=start, commands=commands):
+                self.assertEqual(grid.execute(start, commands),
+                                 Completed(start.execute(commands)))
+
 
 if __name__ == "__main__":
     unittest.main()
