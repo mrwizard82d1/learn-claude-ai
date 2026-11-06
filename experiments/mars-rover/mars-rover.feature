@@ -110,3 +110,13 @@ Feature: Command a rover on a grid
     And the rover is at (5, -43) facing E
     # Inside the bounds the grid is transparent: same result as the unbounded rover.
     # The implementing test uses RANDOM starts and command strings, checked against Rover.execute.
+
+  @f7
+  Scenario: A batch that leaves the grid and would return is still halted at the refused move
+    Given a grid of half-extent 5
+    And a rover at position (3, 0) facing E
+    When it executes "mmmrrm"
+    Then the batch halts before command 2 ("m")
+    And the reported rover is at (5, 0) facing E
+    # The bound is checked after EVERY move, not just at the end: "rrm" would have walked
+    # back to (5, 0), but the third "m" (x=6) is already out of range. Later commands are not applied.

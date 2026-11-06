@@ -76,9 +76,16 @@ class Halted:
 class Grid:
     half_extent: int
 
+    def _contains(self, rover):
+        return abs(rover.x) <= self.half_extent and abs(rover.y) <= self.half_extent
+
     def execute(self, rover, commands):
-        final = rover.execute(commands)
-        if abs(final.x) <= self.half_extent and abs(final.y) <= self.half_extent:
-            return Completed(final)
-        # fake-it: index/command are hardcoded until a mid-batch halt test forces them
-        return Halted(rover, 0, commands)
+        # One command at a time; the first step that would leave the grid halts the batch,
+        # reporting the last good rover, the command's index, and the command itself.
+        current = rover
+        for index, command in enumerate(commands):
+            stepped = current.execute(command)
+            if not self._contains(stepped):
+                return Halted(current, index, command)
+            current = stepped
+        return Completed(current)

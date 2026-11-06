@@ -171,6 +171,16 @@ class MarsRoverTests(unittest.TestCase):
                 self.assertEqual(grid.execute(start, commands),
                                  Completed(start.execute(commands)))
 
+    # F7 (forcing) — a batch that LEAVES the grid and comes back is still HALTED at the refused
+    # move: the check must be per-move, not on the final position. Hardcoded anchor: from (3, 0)
+    # facing E in Grid(5), "mmm" reaches x=6 at command index 2 (refused); "rrm" would have
+    # walked back to (5, 0), which is in bounds. Expect: last good rover (5, 0, E), index 2, "m".
+    # (mars-rover.feature :: @f7 "A batch that leaves the grid and would return ...")
+    def test_batch_that_leaves_and_returns_still_halts(self):
+        start = Rover(3, 0, Heading.E)
+        self.assertEqual(Grid(5).execute(start, "mmmrrm"),
+                         Halted(Rover(5, 0, Heading.E), 2, "m"))
+
 
 if __name__ == "__main__":
     unittest.main()
