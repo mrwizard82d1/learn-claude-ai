@@ -93,7 +93,8 @@ textbook default and be *silently* wrong. Assumptions like these belong in the s
 - **Refused move halts the batch** and reports, so Earth can re-plan (later commands were
   planned assuming the move happened). Turns are never refused.
 - **Result type, not exceptions** (stdlib frozen dataclasses):
-  `Completed(rover)` | `Halted(rover, index, command)` — `rover` = last good state;
+  `Completed(placed)` | `Halted(placed, index, command)` — `placed` = last good state (a
+  `PlacedRover` since the placement migration);
   `index` = position of the refused command in the string.
 - **Placement (start out of bounds):** decided 2026-11-05 — see the placement section below.
 

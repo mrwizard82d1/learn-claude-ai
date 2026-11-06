@@ -62,12 +62,12 @@ class Rover:
 # --- F7: grid bounds (halt-and-report) ---
 @dataclass(frozen=True)
 class Completed:
-    rover: Rover
+    placed: "PlacedRover"
 
 
 @dataclass(frozen=True)
 class Halted:
-    rover: Rover
+    placed: "PlacedRover"
     index: int
     command: str
 
