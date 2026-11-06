@@ -196,6 +196,21 @@ class MarsRoverTests(unittest.TestCase):
             with self.subTest(start=start):
                 self.assertEqual(Grid(5).execute(start, "m"), Completed(expected))
 
+    # F7 (characterization) — a move that would cross the edge is REFUSED on all four sides
+    # (both signs of both axes). From each edge cell facing outward, "m" halts at index 0 and
+    # reports the unmoved rover. Hardcoded anchors, varied don't-care coordinates. Green on
+    # arrival; bite proven by mutants (drop the y check / drop the x check / drop abs()).
+    def test_a_move_off_any_edge_is_refused(self):
+        cases = [
+            Rover(5, -3, Heading.E),
+            Rover(-5, 2, Heading.W),
+            Rover(1, 5, Heading.N),
+            Rover(-2, -5, Heading.S),
+        ]
+        for start in cases:
+            with self.subTest(start=start):
+                self.assertEqual(Grid(5).execute(start, "m"), Halted(start, 0, "m"))
+
 
 if __name__ == "__main__":
     unittest.main()
