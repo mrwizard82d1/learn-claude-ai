@@ -181,6 +181,21 @@ class MarsRoverTests(unittest.TestCase):
         self.assertEqual(Grid(5).execute(start, "mmmrrm"),
                          Halted(Rover(5, 0, Heading.E), 2, "m"))
 
+    # F7 (characterization) — the edge is INCLUSIVE: a move that lands exactly on |x|==N or
+    # |y|==N is allowed (only N+1 is refused). All four edges, hardcoded anchors, with varied
+    # don't-care coordinates. Green on arrival (the per-move check is already general), so its
+    # bite is proven by mutation: change <= to < in Grid._in_bounds and this must go red.
+    def test_a_move_onto_the_edge_is_allowed(self):
+        cases = [
+            (Rover(4, -3, Heading.E), Rover(5, -3, Heading.E)),
+            (Rover(-4, 2, Heading.W), Rover(-5, 2, Heading.W)),
+            (Rover(1, 4, Heading.N), Rover(1, 5, Heading.N)),
+            (Rover(-2, -4, Heading.S), Rover(-2, -5, Heading.S)),
+        ]
+        for start, expected in cases:
+            with self.subTest(start=start):
+                self.assertEqual(Grid(5).execute(start, "m"), Completed(expected))
+
 
 if __name__ == "__main__":
     unittest.main()
