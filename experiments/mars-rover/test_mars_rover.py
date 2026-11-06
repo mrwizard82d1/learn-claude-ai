@@ -1,7 +1,7 @@
 import random
 import unittest
 
-from mars_rover import Completed, Grid, Halted, Heading, OffGrid, Rover
+from mars_rover import Completed, Grid, Halted, Heading, OffGrid, Placed, PlacedRover, Rover
 
 
 class MarsRoverTests(unittest.TestCase):
@@ -244,6 +244,39 @@ class MarsRoverTests(unittest.TestCase):
     def test_placing_a_rover_off_the_grid_is_refused(self):
         rover = Rover(9, 9, Heading.N)
         self.assertEqual(Grid(5).place(rover), OffGrid(rover, 5))
+
+    # F7 placement (characterization) — an in-bounds rover is placed, and the PlacedRover wraps
+    # that same rover. Interior cells incl. the origin (the landing site). Green on arrival; bite
+    # proven by mutants (place always refuses).
+    def test_placing_an_in_bounds_rover_succeeds(self):
+        for rover in [Rover(0, 0, Heading.N), Rover(1, -2, Heading.S), Rover(-3, 4, Heading.W)]:
+            with self.subTest(rover=rover):
+                self.assertEqual(Grid(5).place(rover), Placed(PlacedRover(rover)))
+
+    # F7 placement (characterization) — the edge is INCLUSIVE at placement too: edge cells and
+    # all four corners are placed. Bite proven by the <= -> < mutant.
+    def test_placing_on_the_edge_or_a_corner_succeeds(self):
+        cases = [
+            Rover(5, 0, Heading.E), Rover(-5, 3, Heading.W),
+            Rover(2, 5, Heading.N), Rover(-1, -5, Heading.S),
+            Rover(5, 5, Heading.N), Rover(-5, -5, Heading.S),
+            Rover(-5, 5, Heading.E), Rover(5, -5, Heading.W),
+        ]
+        for rover in cases:
+            with self.subTest(rover=rover):
+                self.assertEqual(Grid(5).place(rover), Placed(PlacedRover(rover)))
+
+    # F7 placement (characterization) — off the grid on ANY single side is refused (both signs,
+    # both axes, one axis at a time), naming the rover and the bound. Bite proven by mutants
+    # (x-check only / y-check only / no abs()).
+    def test_placing_off_any_single_side_is_refused(self):
+        cases = [
+            Rover(6, 0, Heading.E), Rover(-6, 2, Heading.W),
+            Rover(1, 6, Heading.N), Rover(-3, -6, Heading.S),
+        ]
+        for rover in cases:
+            with self.subTest(rover=rover):
+                self.assertEqual(Grid(5).place(rover), OffGrid(rover, 5))
 
 
 if __name__ == "__main__":
