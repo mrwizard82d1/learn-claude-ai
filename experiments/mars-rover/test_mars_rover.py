@@ -288,6 +288,15 @@ class MarsRoverTests(unittest.TestCase):
         self.assertEqual(grid.execute(placed, "mm"),
                          Completed(PlacedRover(Rover(5, 0, Heading.E))))
 
+    # F7 migration (red) — a PlacedRover whose batch leaves the grid is HALTED, and the halt
+    # carries the last good PlacedRover (so Earth can re-plan from it without placing again).
+    # Hardcoded anchor: placed at (3, 0) facing E on Grid(5); "mmm" reaches x=6 at index 2.
+    def test_execute_a_placed_rover_halts_with_a_placed_rover(self):
+        grid = Grid(5)
+        placed = grid.place(Rover(3, 0, Heading.E)).placed
+        self.assertEqual(grid.execute(placed, "mmm"),
+                         Halted(PlacedRover(Rover(5, 0, Heading.E)), 2, "m"))
+
 
 if __name__ == "__main__":
     unittest.main()

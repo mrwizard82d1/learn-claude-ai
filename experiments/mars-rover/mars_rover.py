@@ -116,7 +116,9 @@ class Grid:
     def execute(self, rover, commands):
         if isinstance(rover, PlacedRover):  # new path; the plain-Rover path below goes in the migration
             outcome = self.execute(rover.rover, commands)
-            return Completed(PlacedRover(outcome.rover))  # fake-it: a Halted outcome isn't forced yet
+            if isinstance(outcome, Halted):
+                return Halted(PlacedRover(outcome.rover), outcome.index, outcome.command)
+            return Completed(PlacedRover(outcome.rover))
         # One command at a time; the first step that would leave the grid halts the batch,
         # reporting the last good rover, the command's index, and the command itself.
         current = rover
