@@ -176,8 +176,9 @@ class MarsRoverTests(unittest.TestCase):
                           random.choice(list(Heading)))
             commands = "".join(random.choice("lrm") for _ in range(random.randint(1, 12)))
             with self.subTest(start=start, commands=commands):
-                self.assertEqual(grid.execute(start, commands),
-                                 Completed(start.execute(commands)))
+                placed = self._placed(grid, start)
+                self.assertEqual(grid.execute(placed, commands),
+                                 Completed(PlacedRover(start.execute(commands))))
 
     # F7 (forcing) — a batch that LEAVES the grid and comes back is still HALTED at the refused
     # move: the check must be per-move, not on the final position. Hardcoded anchor: from (3, 0)
@@ -185,9 +186,10 @@ class MarsRoverTests(unittest.TestCase):
     # walked back to (5, 0), which is in bounds. Expect: last good rover (5, 0, E), index 2, "m".
     # (mars-rover.feature :: @f7 "A batch that leaves the grid and would return ...")
     def test_batch_that_leaves_and_returns_still_halts(self):
-        start = Rover(3, 0, Heading.E)
-        self.assertEqual(Grid(5).execute(start, "mmmrrm"),
-                         Halted(Rover(5, 0, Heading.E), 2, "m"))
+        grid = Grid(5)
+        placed = self._placed(grid, Rover(3, 0, Heading.E))
+        self.assertEqual(grid.execute(placed, "mmmrrm"),
+                         Halted(PlacedRover(Rover(5, 0, Heading.E)), 2, "m"))
 
     # F7 (characterization) — the edge is INCLUSIVE: a move that lands exactly on |x|==N or
     # |y|==N is allowed (only N+1 is refused). All four edges, hardcoded anchors, with varied
@@ -217,9 +219,11 @@ class MarsRoverTests(unittest.TestCase):
             Rover(1, 5, Heading.N),
             Rover(-2, -5, Heading.S),
         ]
+        grid = Grid(5)
         for start in cases:
             with self.subTest(start=start):
-                self.assertEqual(Grid(5).execute(start, "m"), Halted(start, 0, "m"))
+                placed = self._placed(grid, start)
+                self.assertEqual(grid.execute(placed, "m"), Halted(placed, 0, "m"))
 
     # F7 (characterization) — TURNS are never refused, even on the edge: standing on a corner
     # (both |x| and |y| equal N) turns still complete, with position unchanged. Four corners,
@@ -232,9 +236,11 @@ class MarsRoverTests(unittest.TestCase):
             (Rover(-5, -5, Heading.S), "l", Rover(-5, -5, Heading.E)),
             (Rover(5, -5, Heading.W), "r", Rover(5, -5, Heading.N)),
         ]
+        grid = Grid(5)
         for start, commands, expected in cases:
             with self.subTest(start=start, commands=commands):
-                self.assertEqual(Grid(5).execute(start, commands), Completed(expected))
+                placed = self._placed(grid, start)
+                self.assertEqual(grid.execute(placed, commands), Completed(PlacedRover(expected)))
 
     # F7 (characterization) — a halt STOPS the batch: commands after the refused move are not
     # applied and cannot change the report. Same prefix "mm" from (4, 0) facing E in Grid(5)
@@ -242,11 +248,12 @@ class MarsRoverTests(unittest.TestCase):
     # Tails include turns, more moves, and moves that would refuse again. Green on arrival;
     # bite proven by mutants (skip-and-continue; report the LAST refusal instead of the first).
     def test_a_halt_ignores_every_later_command(self):
-        start = Rover(4, 0, Heading.E)
-        expected = Halted(Rover(5, 0, Heading.E), 1, "m")
+        grid = Grid(5)
+        placed = self._placed(grid, Rover(4, 0, Heading.E))
+        expected = Halted(PlacedRover(Rover(5, 0, Heading.E)), 1, "m")
         for tail in ["", "lmm", "rrrmmmm", "mmmm", "lllm"]:
             with self.subTest(tail=tail):
-                self.assertEqual(Grid(5).execute(start, "mm" + tail), expected)
+                self.assertEqual(grid.execute(placed, "mm" + tail), expected)
 
     # F7 placement (red) — placing a rover that is OUTSIDE the grid is refused AT PLACEMENT, with
     # the rover and the bound named. Hardcoded anchor: (9, 9) is beyond Grid(5) on both axes.
