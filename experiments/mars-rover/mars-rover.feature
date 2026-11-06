@@ -120,3 +120,12 @@ Feature: Command a rover on a grid
     And the reported rover is at (5, 0) facing E
     # The bound is checked after EVERY move, not just at the end: "rrm" would have walked
     # back to (5, 0), but the third "m" (x=6) is already out of range. Later commands are not applied.
+
+  @f7 @placement
+  Scenario: Placing a rover outside the grid is refused
+    Given a grid of half-extent 5
+    And a rover at position (9, 9) facing N
+    When I place the rover on the grid
+    Then placement is refused as off-grid
+    And the refusal names the rover and the bound 5
+    # The error belongs to PLACEMENT, not to a later command. Edge cells are in range (inclusive).

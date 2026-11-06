@@ -1,7 +1,7 @@
 import random
 import unittest
 
-from mars_rover import Completed, Grid, Halted, Heading, Rover
+from mars_rover import Completed, Grid, Halted, Heading, OffGrid, Rover
 
 
 class MarsRoverTests(unittest.TestCase):
@@ -237,6 +237,13 @@ class MarsRoverTests(unittest.TestCase):
         for tail in ["", "lmm", "rrrmmmm", "mmmm", "lllm"]:
             with self.subTest(tail=tail):
                 self.assertEqual(Grid(5).execute(start, "mm" + tail), expected)
+
+    # F7 placement (red) — placing a rover that is OUTSIDE the grid is refused AT PLACEMENT, with
+    # the rover and the bound named. Hardcoded anchor: (9, 9) is beyond Grid(5) on both axes.
+    # (mars-rover.feature :: @f7 @placement "Placing a rover outside the grid is refused")
+    def test_placing_a_rover_off_the_grid_is_refused(self):
+        rover = Rover(9, 9, Heading.N)
+        self.assertEqual(Grid(5).place(rover), OffGrid(rover, 5))
 
 
 if __name__ == "__main__":

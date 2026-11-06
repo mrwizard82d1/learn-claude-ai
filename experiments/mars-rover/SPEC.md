@@ -95,4 +95,27 @@ textbook default and be *silently* wrong. Assumptions like these belong in the s
 - **Result type, not exceptions** (stdlib frozen dataclasses):
   `Completed(rover)` | `Halted(rover, index, command)` — `rover` = last good state;
   `index` = position of the refused command in the string.
-- **Open (hold for last):** start position out of bounds (placement) — a different seam.
+- **Placement (start out of bounds):** decided 2026-11-05 — see the placement section below.
+
+## Decisions — F7 placement (start out of bounds)  [2026-11-05]
+- **Scope assumption:** this software is an **Earth-side simulator / pre-flight planner**. Use it
+  to simulate a whole mission, or to dry-run the next batch BEFORE the expensive remote
+  execution. So `Halted` is a **predicted** halt ("this plan would leave the comms region at
+  command N") — the plan is rejected before uplink. The onboard rover's own enforcement of its
+  bounds is **out of scope**.
+- **Rover and Grid are separate facts;** the relation between them is a **placement**. Create a
+  `Rover`, create a `Grid`, then `grid.place(rover)` — an operation on two existing things (not a
+  constructor) that can fail loudly and informatively:
+  `Placed(PlacedRover)` | `OffGrid(rover, half_extent)`.
+- **`PlacedRover` is the only valid input to `grid.execute(placed, commands)`** (kept signature
+  shape), so an out-of-bounds start is unrepresentable past the boundary and **turns can never be
+  refused for placement reasons**. `Halted` / `Completed` will carry a `PlacedRover`, so Earth can
+  re-plan from a halt state without placing again.
+- **Python can't seal a constructor:** the guarantee is by convention (leading underscore + docs),
+  weaker than C#/F#. Accepted.
+- **Ownership is a hypothesis:** separate modeling fits a simulator. If this ever moves onboard,
+  the rover itself would hold its grid; `grid.execute` only delegates, so the switch is cheap.
+- **Caveat — verify with a domain expert:** does the real rover have an onboard geofence, and is
+  it the same region as our `Grid`? A mismatch means a plan that passes here but not in reality.
+- **Rationale for NOT using a `Rejected` outcome on `execute`:** a turn "rejected" for an
+  off-grid start puts the error in the wrong place; the failure belongs to placement.

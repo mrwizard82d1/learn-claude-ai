@@ -73,8 +73,30 @@ class Halted:
 
 
 @dataclass(frozen=True)
+class PlacedRover:
+    """A Rover known to be on a Grid. Create only via Grid.place (convention; Python can't seal this)."""
+    rover: Rover
+
+
+@dataclass(frozen=True)
+class Placed:
+    placed: PlacedRover
+
+
+@dataclass(frozen=True)
+class OffGrid:
+    rover: Rover
+    half_extent: int
+
+
+@dataclass(frozen=True)
 class Grid:
     half_extent: int
+
+    def place(self, rover):
+        if not self._in_bounds(rover):
+            return OffGrid(rover, self.half_extent)
+        return Placed(PlacedRover(rover))
 
     def _in_bounds(self, rover):
         return abs(rover.x) <= self.half_extent and abs(rover.y) <= self.half_extent
