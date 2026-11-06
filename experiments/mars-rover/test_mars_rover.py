@@ -200,9 +200,11 @@ class MarsRoverTests(unittest.TestCase):
             (Rover(1, 4, Heading.N), Rover(1, 5, Heading.N)),
             (Rover(-2, -4, Heading.S), Rover(-2, -5, Heading.S)),
         ]
+        grid = Grid(5)
         for start, expected in cases:
             with self.subTest(start=start):
-                self.assertEqual(Grid(5).execute(start, "m"), Completed(expected))
+                placed = self._placed(grid, start)
+                self.assertEqual(grid.execute(placed, "m"), Completed(PlacedRover(expected)))
 
     # F7 (characterization) — a move that would cross the edge is REFUSED on all four sides
     # (both signs of both axes). From each edge cell facing outward, "m" halts at index 0 and
