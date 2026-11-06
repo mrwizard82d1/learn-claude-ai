@@ -129,3 +129,21 @@ Feature: Command a rover on a grid
     Then placement is refused as off-grid
     And the refusal names the rover and the bound 5
     # The error belongs to PLACEMENT, not to a later command. Edge cells are in range (inclusive).
+
+  @f7 @placement
+  Scenario: A completed batch reports the final placed rover
+    Given a grid of half-extent 5
+    And a rover placed at (3, 0) facing E
+    When it executes "mm"
+    Then the batch completes
+    And the reported placed rover is at (5, 0) facing E
+    # The result carries a PlacedRover (known to be on the grid), not a bare Rover.
+
+  @f7 @placement
+  Scenario: A halted batch reports the last good placed rover
+    Given a grid of half-extent 5
+    And a rover placed at (3, 0) facing E
+    When it executes "mmm"
+    Then the batch halts before command 2 ("m")
+    And the reported placed rover is at (5, 0) facing E
+    # Same outcome shape as a completed batch: the halt carries the last good PlacedRover.
