@@ -113,6 +113,9 @@ textbook default and be *silently* wrong. Assumptions like these belong in the s
   re-plan from a halt state without placing again.
 - **Python can't seal a constructor:** the guarantee is by convention (leading underscore + docs),
   weaker than C#/F#. Accepted.
+- **Accepted gaps (2026-11-05, kept simple on purpose):** no constructor guard, and a
+  `PlacedRover` does not record its grid (executing it on a different/smaller `Grid` is not
+  caught). Documented in the `PlacedRover` docstring as a warning to future-us.
 - **Ownership is a hypothesis:** separate modeling fits a simulator. If this ever moves onboard,
   the rover itself would hold its grid; `grid.execute` only delegates, so the switch is cheap.
 - **Caveat — verify with a domain expert:** does the real rover have an onboard geofence, and is

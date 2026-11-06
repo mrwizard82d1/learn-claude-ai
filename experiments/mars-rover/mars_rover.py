@@ -74,7 +74,19 @@ class Halted:
 
 @dataclass(frozen=True)
 class PlacedRover:
-    """A Rover known to be on a Grid. Create only via Grid.place (convention; Python can't seal this)."""
+    """A Rover known to have been placed on a Grid by Grid.place.
+
+    ASSUMPTIONS (deliberately NOT enforced; decided 2026-11-05 to keep this simple):
+    - Callers create these ONLY via Grid.place. Python can't seal a constructor, so
+      PlacedRover(...) still works directly and would bypass the bounds check.
+    - A PlacedRover is only handed back to the Grid that placed it. It does not record its
+      grid, so executing it on a smaller Grid is not caught.
+
+    WARNING to future me: making either of these airtight (a capability token / __post_init__
+    guard, plus storing the grid and checking it in Grid.execute) is NOT a small change. It
+    breaks every test that builds a PlacedRover directly and reshapes the Grid API. If the
+    convention starts to leak, revisit it deliberately, not as a drive-by.
+    """
     rover: Rover
 
 
