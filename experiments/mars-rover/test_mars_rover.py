@@ -226,6 +226,18 @@ class MarsRoverTests(unittest.TestCase):
             with self.subTest(start=start, commands=commands):
                 self.assertEqual(Grid(5).execute(start, commands), Completed(expected))
 
+    # F7 (characterization) — a halt STOPS the batch: commands after the refused move are not
+    # applied and cannot change the report. Same prefix "mm" from (4, 0) facing E in Grid(5)
+    # refuses at index 1 (x=6); every tail yields the identical Halted(last good, 1, "m").
+    # Tails include turns, more moves, and moves that would refuse again. Green on arrival;
+    # bite proven by mutants (skip-and-continue; report the LAST refusal instead of the first).
+    def test_a_halt_ignores_every_later_command(self):
+        start = Rover(4, 0, Heading.E)
+        expected = Halted(Rover(5, 0, Heading.E), 1, "m")
+        for tail in ["", "lmm", "rrrmmmm", "mmmm", "lllm"]:
+            with self.subTest(tail=tail):
+                self.assertEqual(Grid(5).execute(start, "mm" + tail), expected)
+
 
 if __name__ == "__main__":
     unittest.main()
