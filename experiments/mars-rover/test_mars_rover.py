@@ -211,6 +211,21 @@ class MarsRoverTests(unittest.TestCase):
             with self.subTest(start=start):
                 self.assertEqual(Grid(5).execute(start, "m"), Halted(start, 0, "m"))
 
+    # F7 (characterization) — TURNS are never refused, even on the edge: standing on a corner
+    # (both |x| and |y| equal N) turns still complete, with position unchanged. Four corners,
+    # hardcoded anchors, both turn directions. Green on arrival; bite proven by mutants that
+    # tighten a bound (<= -> <), which would refuse a turn because the rover is merely AT the edge.
+    def test_turns_on_the_edge_are_allowed(self):
+        cases = [
+            (Rover(5, 5, Heading.N), "l", Rover(5, 5, Heading.W)),
+            (Rover(-5, 5, Heading.E), "r", Rover(-5, 5, Heading.S)),
+            (Rover(-5, -5, Heading.S), "l", Rover(-5, -5, Heading.E)),
+            (Rover(5, -5, Heading.W), "r", Rover(5, -5, Heading.N)),
+        ]
+        for start, commands, expected in cases:
+            with self.subTest(start=start, commands=commands):
+                self.assertEqual(Grid(5).execute(start, commands), Completed(expected))
+
 
 if __name__ == "__main__":
     unittest.main()
