@@ -76,7 +76,7 @@ class Halted:
 class Grid:
     half_extent: int
 
-    def _contains(self, rover):
+    def _in_bounds(self, rover):
         return abs(rover.x) <= self.half_extent and abs(rover.y) <= self.half_extent
 
     def execute(self, rover, commands):
@@ -85,7 +85,7 @@ class Grid:
         current = rover
         for index, command in enumerate(commands):
             stepped = current.execute(command)
-            if not self._contains(stepped):
+            if not self._in_bounds(stepped):
                 return Halted(current, index, command)
             current = stepped
         return Completed(current)
