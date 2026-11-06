@@ -278,6 +278,16 @@ class MarsRoverTests(unittest.TestCase):
             with self.subTest(rover=rover):
                 self.assertEqual(Grid(5).place(rover), OffGrid(rover, 5))
 
+    # F7 migration (red) — execute takes a PlacedRover and returns one: a completed batch carries
+    # the FINAL PlacedRover. Hardcoded anchor: placed at (3, 0) facing E on Grid(5), "mm" ends at
+    # (5, 0) — the inclusive edge. Built via place(), the real path.
+    # (mars-rover.feature :: @f7 @placement — scenario to be added with the green)
+    def test_execute_a_placed_rover_completes_with_a_placed_rover(self):
+        grid = Grid(5)
+        placed = grid.place(Rover(3, 0, Heading.E)).placed
+        self.assertEqual(grid.execute(placed, "mm"),
+                         Completed(PlacedRover(Rover(5, 0, Heading.E))))
+
 
 if __name__ == "__main__":
     unittest.main()
