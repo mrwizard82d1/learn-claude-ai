@@ -5,6 +5,13 @@ from mars_rover import Completed, Grid, Halted, Heading, OffGrid, Placed, Placed
 
 
 class MarsRoverTests(unittest.TestCase):
+    # Place a rover on a grid, asserting the placement succeeded (so a bad start fails loudly
+    # here, not as an AttributeError later). Returns the PlacedRover that Grid.execute takes.
+    def _placed(self, grid, rover):
+        result = grid.place(rover)
+        self.assertIsInstance(result, Placed)
+        return result.placed
+
     # F1 + F2 — a newly created rover reports its position and heading.
     # (mars-rover.feature :: "A newly created rover reports its position and heading")
     # F1 + F2 — a newly created rover reports its ACTUAL position and heading,
@@ -153,8 +160,9 @@ class MarsRoverTests(unittest.TestCase):
     # reports the last good rover, the index, and the refused command. Hardcoded literals.
     # (mars-rover.feature :: "A move that would leave the grid halts the batch ...")
     def test_move_off_the_edge_halts_and_reports(self):
-        rover = Rover(5, -2, Heading.E)
-        self.assertEqual(Grid(5).execute(rover, "m"), Halted(rover, 0, "m"))
+        grid = Grid(5)
+        placed = self._placed(grid, Rover(5, -2, Heading.E))
+        self.assertEqual(grid.execute(placed, "m"), Halted(placed, 0, "m"))
 
     # F7 (forcing) — a batch that never leaves the grid COMPLETES, and the grid is transparent:
     # the final rover equals the unbounded Rover.execute result (F6 already pins that, so it is
