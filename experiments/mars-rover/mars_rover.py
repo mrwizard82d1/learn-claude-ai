@@ -113,18 +113,13 @@ class Grid:
     def _in_bounds(self, rover):
         return abs(rover.x) <= self.half_extent and abs(rover.y) <= self.half_extent
 
-    def execute(self, rover, commands):
-        if isinstance(rover, PlacedRover):  # new path; the plain-Rover path below goes in the migration
-            outcome = self.execute(rover.rover, commands)
-            if isinstance(outcome, Halted):
-                return Halted(PlacedRover(outcome.rover), outcome.index, outcome.command)
-            return Completed(PlacedRover(outcome.rover))
+    def execute(self, placed, commands):
         # One command at a time; the first step that would leave the grid halts the batch,
-        # reporting the last good rover, the command's index, and the command itself.
-        current = rover
+        # reporting the last good PlacedRover, the command's index, and the command itself.
+        current = placed.rover
         for index, command in enumerate(commands):
             stepped = current.execute(command)
             if not self._in_bounds(stepped):
-                return Halted(current, index, command)
+                return Halted(PlacedRover(current), index, command)
             current = stepped
-        return Completed(current)
+        return Completed(PlacedRover(current))
