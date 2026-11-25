@@ -10,11 +10,10 @@
 2. *Optional skill polish:* make `architecture-view` **emit an index** templated on your own Orchid go-by (`experiments/orchid/docs_dev/README.md` — Purpose & Scope → "just sketches" caveat → 4+1 sections + TOC), and **prefer SVG** output.
 3. *Parked:* harden `repro-planner` (broad Bash/Write); apply the symbol-anchor rule to it.
 4. *Learning experiment (informs #1):* run **`/init` on the fresh Orchid clone** — `experiments/orchid/` (gitignored throwaway; **open a session rooted THERE**, `cd experiments/orchid && claude`, NOT this learn-claude-ai session) to see what auto-bootstrap captures on a codebase you know. **Compare three ways:** `/init` output vs your hand-written `docs_dev/README.md` vs our `architecture-view`/`legacy-archaeologist` output → "what's auto-derivable vs needs-a-human vs needs-a-deep-read." Don't commit it (git history untouched); `rm CLAUDE.md` after. Directly informs how to hand-augment RPA's `CLAUDE.md` (#1).
-5. **Mars Rover spec-driven exercise** (`experiments/mars-rover/`): walking skeleton **F1–F6 done**; **F7 (grid bounds + placement) DONE 2026-11-05** (commits `040ca06`…`af955f8`). **▶ Next: F8 (obstacles), then F9 (invalid / mixed-case input)** — same rhythm: spec the ambiguity → you decide → plan → red→green→refactor.
+5. ✅ **Mars Rover spec-driven exercise — COMPLETE (decided 2026-11-10).** Walking skeleton F1–F6 + **F7 (grid bounds + placement) done 2026-11-05** (commits `040ca06`…`c06d6a6`). **F8 (obstacles) and F9 (invalid / mixed-case input) are consciously DROPPED** — the practice goals were met at F7 (spec ideas are hypotheses, applied to our own plan); they stay in `SPEC.md` as out of scope. A Clojure port is Larry's personal side project, **outside this plan** (memory: `clojure-mars-rover-decisions`).
    - **F7 outcome (decisions in `SPEC.md`):** Earth-side simulator / pre-flight planner; bounded to keep radio contact; origin = landing site; square, edge-inclusive; wrap rejected; `grid.place(rover)` → `Placed(PlacedRover) | OffGrid`; `grid.execute(placed, cmds)` → `Completed(placed) | Halted(placed, index, command)`; a halt stops the batch. Accepted gaps (no constructor guard; `PlacedRover` doesn't record its grid) are documented in its docstring.
    - **Practice lessons banked:** (1) after the one real red, the remaining tests were *green on arrival* — proved by **mutation** (mutate, watch red, restore), not by inventing reds; (2) **mutation-harness gotchas**: clear `__pycache__` / `python -B` (same-size, same-second edits ran stale bytecode) and restore from a saved copy, never `git checkout` over uncommitted work; (3) **red-first migration with a compat shim**, tests migrated by the **rule of three** (one, two, then batch); (4) Python can't seal constructors → chose a docstring warning over a token guard (simplicity).
-   - **F8 to spec:** obstacles live on the `Grid`; does `place` refuse an obstacle cell; does a blocked move halt the batch (like bounds) or skip?
-6. ✅ **DONE 2026-10-01 — the sequel skill:** crystallized [`notes/tdd-with-agents.md`](./notes/tdd-with-agents.md) into the **personal `tdd-pairing` skill** (user-level, both hosts; commit `6e78d57`). See finish-line **Session B** below. **▶ So the real next working step is #5 above: Mars Rover F7.**
+6. ✅ **DONE 2026-10-01 — the sequel skill:** crystallized [`notes/tdd-with-agents.md`](./notes/tdd-with-agents.md) into the **personal `tdd-pairing` skill** (user-level, both hosts; commit `6e78d57`). See finish-line **Session B** below. **▶ Next working step: Session C (Phase-1 tool gaps) — see the Finish-line plan below.**
 *(Done: RPA-diagram grading — approach validated, deep accuracy TBD as you learn RPA · `Sdk=Web`/`AddWindowsService` encode ✅ · RPA doc already lives in `_laj` ✅ · symbol-anchor rule ✅.)*
 
 **Applied track — skill (log 2026-09-15):** harvested the review-relevant slice of
@@ -99,7 +98,7 @@ git-recoverable; line optional+ephemeral; symbol-less files use a stable landmar
 `legacy-archaeologist` and `architecture-view`; `repro-planner` should get the same (his work agent).
 
 ## Finish-line plan (post-deadline — no date pressure)
-Sep-30 deadline passed at **~65% complete** (of the whole 5-phase plan). No dates now — just a
+Sep-30 deadline passed at **~65% complete** (of the whole 5-phase plan). **Re-estimated 2026-11-10: ~75%** (Mars Rover counted complete). By lens: capability ~75% · hours-weighted ~mid-40s · raw checkboxes ~33% (9.5/29) — the gap is mostly unticked readings and formal items; the applied work isn't a box. No dates now — just a
 clean sequence to finish: **~5–6 focused ~1-hr sessions.** (The dated Week 1–4 schedule below is
 **historical**.)
 
@@ -110,8 +109,8 @@ clean sequence to finish: **~5–6 focused ~1-hr sessions.** (The dated Week 1�
 - [x] Removed a stray mis-placed `architecture-view` copy at the Windows skills root (2026-10-01) — see maintenance-backlog
 
 **Sessions (ordered by value / dependency):**
-- [ ] **A — Finish Mars Rover F7–F9** — *(F7 DONE 2026-11-05, `040ca06`…`af955f8`; F8 obstacles + F9 invalid/mixed-case remain)* — grid bounds ✅ · obstacles · invalid/mixed-case
-  input. The richest remaining spec-driven practice; completes Phase-2/3 *doing*. (1–2 sessions)
+- [x] **A — Mars Rover — COMPLETE (2026-11-10)** — F1–F7 done (F7 `040ca06`…`c06d6a6`); **F8 obstacles + F9 invalid input consciously dropped.**
+  (Original plan was F7–F9; the spec-driven practice goals were met at F7.)
 - [x] **B — Crystallize the `tdd-pairing` skill** — ✅ **DONE 2026-10-01** (commit `6e78d57`). Built
   `.claude/skills/tdd-pairing/` (SKILL.md + `references/worked-examples.md` as the refinement seam)
   from `notes/tdd-with-agents.md` + the Mars Rover / String-Calculator reps. Encodes the double loop

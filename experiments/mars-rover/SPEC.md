@@ -24,9 +24,9 @@ truer exercise deliberately left for another day.)*
 - **F4.** Turn right (`R`)
 - **F5.** Move forward one cell (`M`) in the current heading
 - **F6.** Execute a command string (`"LMLMM"`)
-- **F7.** Grid bounds behavior            — *decision-heavy* (wrap? block? error?)
-- **F8.** Obstacle detection / handling   — *decision-heavy*
-- **F9.** Invalid command / bad input     — *decision-heavy*
+- **F7.** Grid bounds behavior            — *decision-heavy* (wrap? block? error?) — **DONE 2026-11-05**
+- **F8.** Obstacle detection / handling   — *decision-heavy* — **consciously DROPPED 2026-11-10**
+- **F9.** Invalid command / bad input     — *decision-heavy* — **consciously DROPPED 2026-11-10**
 
 **Build order:** F1–F6 first (a walking skeleton of the unambiguous mechanics), then the
 decision-heavy F7–F9 once the design has taught us more.
@@ -123,3 +123,14 @@ textbook default and be *silently* wrong. Assumptions like these belong in the s
   it the same region as our `Grid`? A mismatch means a plan that passes here but not in reality.
 - **Rationale for NOT using a `Rejected` outcome on `execute`:** a turn "rejected" for an
   off-grid start puts the error in the wrong place; the failure belongs to placement.
+
+## Status & process decisions  [2026-11-10 / 2026-11-25]
+- **Exercise COMPLETE at F7.** F8 (obstacles) and F9 (invalid / mixed-case input) are consciously
+  dropped: the spec-driven practice goals were met, and a dropped idea is a legitimate outcome
+  ("not done until implemented OR consciously dropped"). `Rover.execute` still silently skips
+  unknown characters; that is the known, accepted behavior (the deferred F9 question).
+- **`mars-rover.feature` is documentation BY DECISION (2026-11-05): no behave / pytest-bdd.**
+  Scenarios are kept in sync with `test_mars_rover.py` by hand. Consequence: the outer
+  (acceptance) loop was a written scenario, never an executed one, and every red/green we ran was
+  inner loop. For real tickets that must be explicit; this was accepted for a practice exercise.
+- **Clojure port** is a personal side project, outside the learning plan.
