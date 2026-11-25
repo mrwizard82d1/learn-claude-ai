@@ -126,6 +126,16 @@ clean sequence to finish: **~5–6 focused ~1-hr sessions.** (The dated Week 1�
   Indragie's macOS article (20m); write a "stay current" cadence into `notes/`; **final completion
   commit** 🎉. (1 session, light)
 
+**Thanksgiving-week push (planned 2026-11-25; goal: finish before Mon 2026-11-30).** Days off: Wed 11/25 + Fri 11/27 (Thu = holiday). Focus shifted toward **spec-driven AI development**. Notes accumulate in `notes/spec-driven-ai.md` (per source: claim · vs our practice · one hypothesis to test).
+- **Wed 11/25 (~6h):**
+  - [ ] 1. DeepLearning.AI "Spec-Driven Development with Coding Agents" (Paul Everitt / JetBrains; ~1–1.5h; skip PRO quiz) — compare with `tdd-pairing` / `legacy-change`
+  - [ ] 2. Dave Farley free: "Acceptance Testing Is the FUTURE of Programming", "How to Actually Succeed with AI Development", "TDD with an AI Agent", Tessl essay "Vibe coding is not the best we can do" (~1h) → decide on his paid course 404 (ATDD, £599; Black Friday code `BFCM2026` 30% off until 11/30)
+  - [ ] 3. Uncle Bob "Clean AI: Agentic Discipline" (~1h; skip if paywalled)
+  - [ ] 4. Willison red/green (30m) · Harper Reed (20m) · GitHub Spec Kit skim (30m)
+  - [ ] 5. Session C (slash command, hook, `claude -p`, `/rewind`) — may spill to Fri morning
+- **Fri 11/27 (~5h):** Session D (eval + adversarial review; make the review target a small spec-driven feature; optional rep: run an *executable* acceptance loop — behave/pytest-bdd — the Rover skipped) → Session E (subscribe, Indragie, stay-current note, final commit 🎉)
+- Clojure port questions parked until after Fri (memory: `clojure-mars-rover-decisions`).
+
 **Reading (Larry *wants* to do these — not skipped; sequence when we reach them):** the Phase-2 list
 (Martin "Clean AI" video, Harper Reed, Willison red/green, GitHub Spec Kit) and the Phase-3 readings.
 They deepen the *why* behind the practice already done; fold into sessions A/D or their own slot.
