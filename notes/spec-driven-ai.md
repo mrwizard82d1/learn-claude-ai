@@ -99,7 +99,51 @@ that solution.** (My earlier guess, "codify the process as a workflow or skill",
 4. Treating each ticket as an experiment: record a one-line hypothesis and outcome per change in `worked-examples.md`
    and see whether it improves the next change. Cheap; try it on the first real-work use of `tdd-pairing`.
 
-**Open:** one more Farley video ("TDD with an AI Agent") and the Tessl essay. Update this section after them.
+**Correction (2026-11-26):** "TDD with an AI Agent: Whisking Raw Ideas into Tidy Code" is **not Farley's**. It is by
+Younes (The Software Cook), about an hour. Demoted to optional; not yet watched.
+
+### 2c. Farley — Tessl essay "Vibe Coding — Is this really the best we can do?" — done 2026-11-26
+
+Source: Larry's summary in [`vibe-coding-not-the-best-we-can-do.md`](./vibe-coding-not-the-best-we-can-do.md).
+Written by Farley and hosted by Tessl. Recorded as Larry reports it.
+
+**Claim**
+- Natural language is too vague to replace a programming language: variations occur even among human
+  implementers, so results may be plausible but not repeatable.
+- AI programming creates three problems: **specification** (say what we want precisely), **verification**
+  (confirm we got it), **incrementalism** (keep learning in small steps when agents make large changes fast).
+  "The bottleneck is not code generation... If we do not speed up assurance to match generation, we have only
+  moved the constraint."
+- **Executable specifications are the program.** A BDD-style spec is readable by humans and executable by
+  machines, so it gives specification and verification at once. The programmer's job shifts to defining outcomes,
+  edge cases and the non-functional requirements (performance, security, reliability).
+- Incrementalism becomes continuous delivery: specs are **version controlled**, acceptance tests run **in a
+  deployment pipeline**, and some tests may be **hidden from the AI** to stop example-only passing code.
+- AI-generated tests treated as a replacement for precise intent and independent verification "become a bad trade."
+- "The generated code becomes less important than the behavior we can prove."
+
+**vs our practice**
+- **"Independent verification" = our anchor vs independent-oracle distinction.** Farley's warning about
+  AI-generated tests is the failure our mutation checks guarded against, where a green suite proves little.
+  Same discipline, stated from the spec side.
+- **Hidden tests** is a new idea for us. We never withheld tests from the agent. In `tdd-pairing` the agent sees
+  all of them, so an agent could in principle fake-it to green on the visible examples. We counter that with
+  triangulation and mutation, not hiding.
+- **Version-controlled specs** we do (`SPEC.md`, `.feature`). **Acceptance in a pipeline** we don't: the `.feature`
+  never ran, and we had no pipeline. That is the Rover gap again.
+- **Tension to resolve:** "we need not inspect every generated line" vs our practice, where Larry directs and
+  reviews each step. Farley's condition is "only if we have a reliable way to verify the behavior." Where that
+  verification is weak (our Rover had no executable acceptance), reading the code is still the safety net.
+- Matches the Podjarny interview (2b): same claim, "behavior we can prove" over "code we wrote."
+
+**Hypotheses to test**
+5. **Hidden acceptance tests:** keep a held-out set of examples the agent never sees. After the agent goes green on
+   the visible tests, run the held-out set. Does it catch example-only passing? Cheap to try on a small kata.
+6. **Verification speed is the real bottleneck.** On the next real ticket, time spec, generation and verification
+   separately. Farley predicts verification dominates. Our Rover suggests so (most time went to decisions and
+   mutation checks, not typing).
+
+**Open:** nothing left from Farley except the optional Younes video.
 ## 3. Uncle Bob "Clean AI" — (pending)
 ## 4. Willison red/green · Reed · Spec Kit — (pending)
 
