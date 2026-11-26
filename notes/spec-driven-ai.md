@@ -61,8 +61,45 @@ programming."
 3. Who writes the acceptance tests matters. If the AI writes them, the harness shares the AI's blind spots.
    Keep Larry as the author or reviewer of the `.feature` (consistent with "spec ideas are hypotheses").
 
-**Open:** the other two Farley videos ("How to Actually Succeed with AI Development", "TDD with an AI Agent") and the
-Tessl essay are still to come. Update this section after them.
+### 2b. Farley — "How to Actually Succeed with AI Development" (video 2 of 3) — done 2026-11-26
+
+Source: Larry's summary in [`h2-succeed-with-ai-dev.md`](./h2-succeed-with-ai-dev.md). An interview with **Guy Podjarny
+(CEO, Tessl)**; only a little about Tessl's tool. Recorded as Larry reports it; I haven't seen the video.
+
+**Claim (Larry's reading):** the same approach as video 1 in different terms. The focus is **iterative loops that
+improve the software *process*, not just the software**: use expertise to improve software iteratively, and use AI to
+improve the process so it uses that expertise more effectively. Treat each **change as an experiment**. One variant
+phrasing: "coding the development instead of the solution" (versus the original "go from spec the developer to
+spec the solution").
+
+**vs our practice**
+- "Change as an experiment" is how we've worked: spec ideas are hypotheses, mutation proves a green-on-arrival test
+  bites, and `worked-examples.md` is the refinement seam. We practice it but don't name it as the principle.
+- "Improve the process, not just the software" is what `tdd-pairing`, `PROGRESS.md` and memory already do: a lesson
+  from one session becomes a rule in the next.
+- Tessl is the same company as the essay on the Farley list, so the Tessl essay probably extends this video.
+
+**Resolved (Larry, 2026-11-26): what the phrase means.** "Coding the development instead of the solution" is the
+video's concise statement of the change AI introduces. Without AI, development is mainly an engineer writing code.
+With AI, it becomes **specifying the solution and letting the AI write the code for *one implementation path* to
+that solution.** (My earlier guess, "codify the process as a workflow or skill", was wrong; it is not about
+`tdd-pairing`-style tooling.)
+
+**Consequences for our practice**
+- The **spec is the durable artifact; the code is one of many possible implementations.** That is the same idea as
+  video 1 (acceptance tests as fixed points), seen from the other side: fixed points define the solution, and the
+  implementation path is allowed to vary.
+- It sharpens hypothesis 2: if code is "one path", then two runs of the same spec *should* produce different paths,
+  and the spec must be strong enough that **any** passing path is acceptable. Our Mars Rover specs were not written
+  to that standard. They relied on Larry's design direction during the typing, which pinned the path.
+- It reframes the Rover: Larry directing the design was **choosing the path**, not just specifying the solution.
+  Whether that is the right split is a question the sources raise and we haven't answered (see synthesis).
+
+**Hypothesis to test**
+4. Treating each ticket as an experiment: record a one-line hypothesis and outcome per change in `worked-examples.md`
+   and see whether it improves the next change. Cheap; try it on the first real-work use of `tdd-pairing`.
+
+**Open:** one more Farley video ("TDD with an AI Agent") and the Tessl essay. Update this section after them.
 ## 3. Uncle Bob "Clean AI" — (pending)
 ## 4. Willison red/green · Reed · Spec Kit — (pending)
 
