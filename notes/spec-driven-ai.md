@@ -144,7 +144,46 @@ Written by Farley and hosted by Tessl. Recorded as Larry reports it.
    mutation checks, not typing).
 
 **Open:** nothing left from Farley except the optional Younes video.
-## 3. Uncle Bob "Clean AI" — (pending)
+## 3. Robert Martin — "Agentic Discipline" (video, published 2026-10) — done 2026-11-26
+
+Source: Larry's notes in [`agentic-discipline.md`](./agentic-discipline.md). Recorded as Larry reports it; I haven't
+seen the video, and I haven't checked whether Martin's tools run in our languages.
+
+**Claim (Larry's reading):** Martin does **not** use acceptance tests as the harness. He constrains the agent's
+**implementation** with metrics from tools he wrote: **crap, mutate, dry**. In the demo he first builds the
+application with none of them (from an original, undocumented prompt), then runs **measure → fix → measure** to
+raise code quality. The demo app was simple (single user, I/O rendering changing images, no real user input) yet
+still left many opportunities. He also discussed building UIs for developer-specific tools, including an editor
+for the "scripts" used in the video.
+
+**Larry's synthesis:** Martin and Farley are **complementary**. Farley constrains *behavior* (acceptance tests as
+fixed points; little about engineering quality). Martin constrains *code quality* (the product should be well
+engineered; he doesn't try to pin the whole application's behavior). Larry wants "my process" to include both.
+
+**vs our practice**
+- **We already hold both halves, but not as one process.**
+  - Farley side: the outer loop in `tdd-pairing` (red acceptance → green acceptance). Weak in practice, since the
+    Rover `.feature` never executed.
+  - Martin side: the **six change-quality goals** in the global `CLAUDE.md` (>90% condition coverage on changed code,
+    complexity ≤10, ≤3 arguments, intent-revealing names) plus the `test-strength` skill (condition coverage,
+    mutation) and the `work-order` skill. This is the measure-fix-measure idea, targeted at *changes*.
+- **"Mutate" = what we hand-ran on the Rover.** We mutated, watched red, restored. Martin has a tool for it; the
+  `test-strength` skill covers where a maintained tool works and where to hand-roll.
+- **Martin's loop starts after the code exists.** Ours is test-first, so Martin's measures would run in the
+  *refactor* step and at the end of a change. That slots in without conflict.
+- Farley's "almost correct, needs hand-holding" and Martin's "agent output needs measured cleanup" agree: neither
+  trusts raw generation.
+
+**Hypotheses to test**
+7. **One combined loop:** red acceptance (Farley) → inner red/green/refactor → **measure-fix-measure gate** (Martin:
+   coverage, complexity, mutation, duplication) → green acceptance. Write it as an explicit step in `tdd-pairing`
+   or `work-order`, then try it on one real ticket.
+8. **Metrics as agent constraints:** give the agent the numeric gates up front (as `work-order` already does) and see
+   whether it hits them first time or needs fix cycles. Compare with Martin's measure-fix-measure demo.
+9. **Tool availability:** find which of crap / mutate / dry (or equivalents) work for Python and C#. Unverified;
+   check before depending on them.
+
+**Open:** none from Martin, beyond hypothesis 9.
 ## 4. Willison red/green · Reed · Spec Kit — (pending)
 
 ## Cross-source synthesis — (after block 4)

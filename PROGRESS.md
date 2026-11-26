@@ -130,7 +130,7 @@ clean sequence to finish: **~5–6 focused ~1-hr sessions.** (The dated Week 1�
 - **Wed 11/25 (~6h):**
   - [x] 1. DeepLearning.AI "Spec-Driven Development with Coding Agents" (Paul Everitt / JetBrains; ~1–1.5h; skip PRO quiz) — compare with `tdd-pairing` / `legacy-change`
   - [x] 2. Dave Farley free (done 2026-11-26): "Acceptance Testing Is the FUTURE of Programming", "How to Actually Succeed with AI Development", Tessl essay "Vibe coding is not the best we can do". (*Correction:* "TDD with an AI Agent" is by Younes / The Software Cook, not Farley — optional, ~1h, unwatched.) → decide on his paid course 404 (ATDD, £599; Black Friday code `BFCM2026` 30% off until 11/30)
-  - [ ] 3. Uncle Bob "Clean AI: Agentic Discipline" (~1h; skip if paywalled)
+  - [x] 3. Uncle Bob "Agentic Discipline" (watched 2026-11-26; notes: `notes/agentic-discipline.md`)
   - [ ] 4. Willison red/green (30m) · Harper Reed (20m) · GitHub Spec Kit skim (30m)
   - [ ] 5. Session C (slash command, hook, `claude -p`, `/rewind`) — may spill to Fri morning
 - **Fri 11/27 (~5h):** Session D (eval + adversarial review; make the review target a small spec-driven feature; optional rep: run an *executable* acceptance loop — behave/pytest-bdd — the Rover skipped) → Session E (subscribe, Indragie, stay-current note, final commit 🎉)
