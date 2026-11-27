@@ -184,7 +184,36 @@ engineered; he doesn't try to pin the whole application's behavior). Larry wants
    check before depending on them.
 
 **Open:** none from Martin, beyond hypothesis 9.
-## 4. Willison red/green · Reed · Spec Kit — (pending)
+## 4. Willison red/green · Reed · Spec Kit
+
+### 4a. Harper Reed — "My LLM codegen workflow atm" (2025-02-16) — done 2026-11-27
+
+Source: Larry's notes in [`my-llm-codegen-workflow.md`](./my-llm-codegen-workflow.md). Recorded as
+Larry reports it. The plan file describes the article as the brainstorm spec → plan → execute loop; I haven't read it.
+
+**Claim (Larry's reading):** a "tried AI on a project and it went great" report, similar to and repetitive of
+others. Brownfield development is mentioned, but only briefly.
+
+**Larry's critique:** it says little about **maintaining AI-written code long term** and nothing about **software
+engineering**, meaning optimizing the "-ilities" of a codebase to meet a business goal at acceptable cost. He is
+skeptical but open: AI might lower initial *and* maintenance cost enough that engineering stops mattering; he isn't
+convinced.
+
+**vs our practice and the other sources**
+- Reed is the **generation-process** layer (spec → plan → execute), the same family as the DeepLearning.AI
+  constitution + feature loop. Like that course, it is thin on verification and quality, which Farley (behavior) and
+  Martin (code quality) supply. A three-layer picture is emerging: **process (Reed / DLAI) · behavior (Farley) ·
+  quality (Martin)**. Held for the synthesis.
+- Larry's "-ilities / long-term maintenance" objection is the point of the change-quality goals in `CLAUDE.md`, and
+  matches Farley's non-functional requirements (performance, security, reliability) in the Tessl essay.
+
+**Hypothesis to test**
+10. **"Engineering no longer matters" is an empirical claim.** Test it on code we have: take an agent-written change,
+    then make a *second* change a month later and compare effort against a hand-structured baseline. Needs real
+    work; park it until `tdd-pairing` is used on a real ticket. Until then, treat the claim as unproven, as Larry does.
+
+### 4b. Willison red/green — (pending)
+### 4c. GitHub Spec Kit — (pending)
 
 ## Cross-source synthesis — (after block 4)
 Where sources agree with `tdd-pairing` · where they differ · what the Rover skipped (the executable outer loop).
